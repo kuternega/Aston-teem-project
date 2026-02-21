@@ -11,7 +11,8 @@ public class DefaultClassLoaderTest {
         DefaultClassLoader loader = new DefaultClassLoader();
         loader.load();
 
-        List<DefaultClassLoader.Record> records = loader.getDataRecord();
+        // Используем импортированный класс Record
+        List<Record> records = loader.getDataRecord();
         assertEquals(3, records.size());
 
         assertEquals("NAME#1", records.get(0).getName());
