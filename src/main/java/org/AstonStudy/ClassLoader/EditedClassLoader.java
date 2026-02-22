@@ -10,6 +10,10 @@ import java.util.List;
 public class EditedClassLoader implements ClassLoader {
     private List<Record> dataRecord = new ArrayList<>();
 
+    public List<Record> getDataRecord() {
+        return dataRecord;
+    }
+
     // Загрузчик нового файла
     @Override
     public void load() {
