@@ -21,9 +21,9 @@ public class DefaultClassLoader implements ClassLoader {
         try {
             List<String> lines = Files.readAllLines(path);
             for (int i = 0; i < lines.size(); i += 3) {
-                String name = lines.get(i).substring(10).trim();
-                String something1 = lines.get(i+1).substring(9).trim();
-                String something2 = lines.get(i+2).substring(9).trim();
+                String name = lines.get(i).substring(7).trim();
+                String something1 = lines.get(i+1).substring(6).trim();
+                String something2 = lines.get(i+2).substring(7).trim();
                 dataRecord.add(new Record(name, something1, something2));
             }
         } catch (IOException e) {

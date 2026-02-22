@@ -19,12 +19,12 @@ public class EditedClassLoader implements ClassLoader {
     public void load() {
         String help = """ 
                 Добавьте в файл EditedClassLoader свои значения типа
-                "НАЗВАНИЕ: " + Ваше значение,
-                "ЧТО-ТО1: " + Ваше значение,
-                "ЧТО-ТО2: " + Ваше значение,
+                "MODEL: " + Ваше значение,
+                "YEAR: " + Ваше значение,
+                "POWER: " + Ваше значение,
                 Название в кавычках это "Теги", на основе которых потом ищутся значения
                 """;
-        System.out.println(help);
+        System.out.printf(help);
         Path path = Paths.get("src/main/java/org/AstonStudy/ClassLoader/", "EditedClassLoaderFile");
 
 
@@ -43,9 +43,9 @@ public class EditedClassLoader implements ClassLoader {
             }
 
             for (int i = 0; i < lines.size(); i += 3) {
-                String name = lines.get(i).substring(10).trim();
-                String something1 = lines.get(i+1).substring(9).trim();
-                String something2 = lines.get(i+2).substring(9).trim();
+                String name = lines.get(i).substring(7).trim();
+                String something1 = lines.get(i+1).substring(6).trim();
+                String something2 = lines.get(i+2).substring(7).trim();
                 dataRecord.add(new Record(name, something1, something2));
             }
         } catch (IOException e) {

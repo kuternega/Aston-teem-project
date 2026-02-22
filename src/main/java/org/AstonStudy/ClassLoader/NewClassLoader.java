@@ -44,9 +44,9 @@ public class NewClassLoader implements ClassLoader {
 
     private void saveToFile(Record record) {
         List<String> lines = List.of(
-                "НАЗВАНИЕ: " + record.getName(),
-                "ЧТО-ТО1: " + record.getSomething1(),
-                "ЧТО-ТО2: " + record.getSomething2()
+                "MODEL: " + record.getName(),
+                "YEAR: " + record.getSomething1(),
+                "POWER: " + record.getSomething2()
         );
         try {
             Files.write(FILE_PATH, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
