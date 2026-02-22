@@ -1,5 +1,7 @@
 package org.AstonStudy.ClassLoader;
 
+import org.AstonStudy.Car;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,12 +12,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class NewClassLoader implements ClassLoader {
-    private final List<Record> dataRecord = new ArrayList<>();
     private static final Path FILE_PATH = Paths.get("src/main/java/org/AstonStudy/ClassLoader/", "EditedClassLoaderFile");
+    private final List<Car> carRecord = new ArrayList<Car>();
 
-
-    public List<Record> getDataRecord() {
-        return dataRecord;
+    public List<Car> getCarRecord() {
+        return carRecord;
     }
 
     // Загрузчик "Вручную"
@@ -32,9 +33,9 @@ public class NewClassLoader implements ClassLoader {
             } else {
                 String[] userClass = userAnswer.split(",");
                 if (userClass.length == 3) {
-                    Record record = new Record(userClass[0].trim(), userClass[1].trim(), userClass[2].trim());
-                    dataRecord.add(record);
-                    saveToFile(record);
+                    Car car = new Car(userClass[0].trim(), userClass[1].trim(), userClass[2].trim());
+                    carRecord.add(car);
+                    saveToFile(car);
                 } else {
                     System.out.println("Ошибка: нужно ввести ровно три значения через запятую.");
                 }
@@ -42,11 +43,11 @@ public class NewClassLoader implements ClassLoader {
         }
     }
 
-    private void saveToFile(Record record) {
+    private void saveToFile(Car carRecord) {
         List<String> lines = List.of(
-                "MODEL: " + record.getName(),
-                "YEAR: " + record.getSomething1(),
-                "POWER: " + record.getSomething2()
+                "MODEL: " + carRecord.getModel(),
+                "YEAR: " + carRecord.getYear(),
+                "POWER: " + carRecord.getPower()
         );
         try {
             Files.write(FILE_PATH, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);

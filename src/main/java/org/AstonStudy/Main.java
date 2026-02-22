@@ -3,7 +3,6 @@ package org.AstonStudy;
 import org.AstonStudy.ClassLoader.DefaultClassLoader;
 import org.AstonStudy.ClassLoader.EditedClassLoader;
 import org.AstonStudy.ClassLoader.NewClassLoader;
-import org.AstonStudy.ClassLoader.Record;
 
 import java.util.List;
 
@@ -24,37 +23,37 @@ public class Main {
 
         DefaultClassLoader def = new DefaultClassLoader();
         def.load();
-        List<Record> records = def.getDataRecord();
+        List<Car> records = def.getCarRecord();
         if (records.isEmpty()) {
             System.out.println("Записей не загружено. Проверьте файл ClassLoader/DefaultClassLoaderFile");
         } else {
             System.out.println("Загружено записей: " + records.size());
-            for (Record r : records) {
-                System.out.println(r.getName() + " | " + r.getSomething1() + " | " + r.getSomething2());
+            for (Car car : records) {
+                System.out.println(car.getModel() + " | " + car.getYear() + " | " + car.getPower());
             }
         }
 
         EditedClassLoader edit = new EditedClassLoader();
         edit.load();
-        List<Record> editedRecords = edit.getDataRecord();
+        List<Car> editedRecords = edit.getCarRecord();
         if (editedRecords.isEmpty()) {
             System.out.println("Записей не загружено. Проверьте файл ClassLoader/EditedClassLoaderFile");
         } else {
             System.out.println("Загружено записей: " + editedRecords.size());
-            for (Record r : editedRecords) {
-                System.out.println(r.getName() + " | " + r.getSomething1() + " | " + r.getSomething2());
+            for (Car car : editedRecords) {
+                System.out.println(car.getModel() + " | " + car.getYear() + " | " + car.getPower());
             }
         }
 
         NewClassLoader newClassLoader = new NewClassLoader();
         newClassLoader.load();
-        List<Record> newRecords = newClassLoader.getDataRecord();
+        List<Car> newRecords = newClassLoader.getCarRecord();
         if (newRecords.isEmpty()) {
             System.out.println("Записей не загружено. Проверьте файл ClassLoader/EditedClassLoaderFile");
         } else {
             System.out.println("Загружено записей: " + newRecords.size());
-            for (Record r : newRecords) {
-                System.out.println(r.getName() + " | " + r.getSomething1() + " | " + r.getSomething2());
+            for (Car car : newRecords) {
+                System.out.println(car.getModel() + " | " + car.getYear() + " | " + car.getPower());
             }
         }
     }

@@ -7,11 +7,19 @@ public class Car {
     private final String model;
     private final int year;
 
-    private Car(Builder builder) {
+    public Car(Builder builder) {
         this.power = builder.power;
         this.model = builder.model;
         this.year = builder.year;
     }
+
+    public Car(String model, String year, String power) {
+        this.model = model;
+        this.year = Integer.parseInt(year);
+        this.power = Integer.parseInt(power);
+    }
+
+
     public int getPower() {
         return power;
     }
