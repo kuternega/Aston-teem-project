@@ -16,7 +16,7 @@ public class DefaultClassLoader implements ClassLoader {
 
     @Override
     public void load() {
-        Path path = Paths.get("ClassLoader", "DefaultClassLoaderFile");
+        Path path = Paths.get("src/main/java/org/AstonStudy/ClassLoader/", "DefaultClassLoaderFile");
 
         try {
             List<String> lines = Files.readAllLines(path);

@@ -14,7 +14,7 @@ public class EditedClassLoader implements ClassLoader {
     @Override
     public void load() {
         System.out.println("Добавьте файл в папку ClassLoader и назовите его EditedClassLoaderFile");
-        Path path = Paths.get("ClassLoader", "EditedClassLoaderFile");
+        Path path = Paths.get("src/main/java/org/AstonStudy/ClassLoader/", "EditedClassLoaderFile");
 
 
 
