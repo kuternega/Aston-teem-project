@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditedClassLoader implements ClassLoader {
-    private List<Record> dataRecord = new ArrayList<>();
+    private final List<Record> dataRecord = new ArrayList<>();
 
     public List<Record> getDataRecord() {
         return dataRecord;
@@ -17,7 +17,14 @@ public class EditedClassLoader implements ClassLoader {
     // Загрузчик нового файла
     @Override
     public void load() {
-        System.out.println("Добавьте файл в папку ClassLoader и назовите его EditedClassLoaderFile");
+        String help = """ 
+                Добавьте в файл EditedClassLoader свои значения типа
+                "НАЗВАНИЕ: " + Ваше значение,
+                "ЧТО-ТО1: " + Ваше значение,
+                "ЧТО-ТО2: " + Ваше значение,
+                Название в кавычках это "Теги", на основе которых потом ищутся значения
+                """;
+        System.out.println(help);
         Path path = Paths.get("src/main/java/org/AstonStudy/ClassLoader/", "EditedClassLoaderFile");
 
 

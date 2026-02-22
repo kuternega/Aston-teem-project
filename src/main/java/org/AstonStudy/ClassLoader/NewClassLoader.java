@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class NewClassLoader implements ClassLoader {
-    private List<Record> dataRecord = new ArrayList<>();
+    private final List<Record> dataRecord = new ArrayList<>();
     private static final Path FILE_PATH = Paths.get("src/main/java/org/AstonStudy/ClassLoader/", "EditedClassLoaderFile");
 
 
@@ -23,10 +23,11 @@ public class NewClassLoader implements ClassLoader {
     public void load() {
         boolean isValid = false;
         while (!isValid) {
-            System.out.println("Введите через \",\": Название, Что-то ещё, Что-то ещё. Когда закончите напишите \"Стоп\"");
+            System.out.println("Введите через \",\": Название, Что-то ещё, Что-то ещё. " +
+                    "Когда закончите напишите \"Стоп\" или \"Stop\"");
             Scanner sc = new Scanner(System.in);
             String userAnswer = sc.nextLine();
-            if (userAnswer.equalsIgnoreCase("Стоп")) {
+            if (userAnswer.equalsIgnoreCase("Стоп") || userAnswer.equalsIgnoreCase("Stop")) {
                 isValid = true;
             } else {
                 String[] userClass = userAnswer.split(",");

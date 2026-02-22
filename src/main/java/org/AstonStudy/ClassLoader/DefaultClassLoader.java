@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultClassLoader implements ClassLoader {
-    private List<Record> dataRecord = new ArrayList<>();
+    private final List<Record> dataRecord = new ArrayList<>();
 
     public List<Record> getDataRecord() {
         return dataRecord;
