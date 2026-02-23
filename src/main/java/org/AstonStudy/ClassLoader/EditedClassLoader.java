@@ -45,6 +45,18 @@ public class EditedClassLoader implements ClassLoader {
             }
 
             for (int i = 0; i < lines.size(); i += 3) {
+                if (!lines.get(i).startsWith("MODEL: ")) {
+                    System.out.println("Строка " + (i+1) + " должна начинаться с 'MODEL: '");
+                    continue;
+                }
+                if (!lines.get(i + 1).startsWith("YEAR: ")) {
+                    System.out.println("Строка " + (i + 2) + " должна начинаться с 'YEAR: '");
+                    continue;
+                }
+                if (!lines.get(i + 2).startsWith("POWER: ")) {
+                    System.out.println("Строка " + (i + 3) + " должна начинаться с 'POWER: '");
+                    continue;
+                }
                 String model = lines.get(i).substring(7).trim();
                 String year = lines.get(i+1).substring(6).trim();
                 String power = lines.get(i+2).substring(7).trim();
