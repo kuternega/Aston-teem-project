@@ -40,6 +40,7 @@ public class NewClassLoader implements ClassLoader {
                     System.out.println("Ошибка: нужно ввести ровно три значения через запятую.");
                 }
             }
+            sc.close();
         }
     }
 
