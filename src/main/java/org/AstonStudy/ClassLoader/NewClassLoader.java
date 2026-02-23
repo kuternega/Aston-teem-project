@@ -33,7 +33,7 @@ public class NewClassLoader implements ClassLoader {
             } else {
                 String[] userClass = userAnswer.split(",");
                 if (userClass.length == 3) {
-                    Car car = new Car(userClass[0].trim(), userClass[1].trim(), userClass[2].trim());
+                    Car car = Car.createNewCar(userClass[0].trim(), userClass[1].trim(), userClass[2].trim());
                     carRecord.add(car);
                     saveToFile(car);
                 } else {

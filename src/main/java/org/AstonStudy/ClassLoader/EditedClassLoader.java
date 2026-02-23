@@ -48,7 +48,7 @@ public class EditedClassLoader implements ClassLoader {
                 String model = lines.get(i).substring(7).trim();
                 String year = lines.get(i+1).substring(6).trim();
                 String power = lines.get(i+2).substring(7).trim();
-                carRecord.add(new Car(model, year, power));
+                carRecord.add(Car.createNewCar(model, year, power));
             }
         } catch (IOException e) {
             System.out.println("Вы не добавили файл EditedClassLoaderFile в папку ClassLoader");
