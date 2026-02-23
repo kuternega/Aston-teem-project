@@ -1,30 +1,30 @@
-НАЗВАНИЕ: NAME#1
-ЧТО-ТО1: SOMETHING#1
-ЧТО-ТО2: ANDNEXT#1
-НАЗВАНИЕ: NAME#2
-ЧТО-ТО1: SOMETHING#2
-ЧТО-ТО2: ANDNEXT#2
-НАЗВАНИЕ: NAME#3
-ЧТО-ТО1: SOMETHING#3
-ЧТО-ТО2: ANDNEXT#3
-НАЗВАНИЕ: NAME#4
-ЧТО-ТО1: SOMETHING#4
-ЧТО-ТО2: ANDNEXT#4
-НАЗВАНИЕ: NAME#5
-ЧТО-ТО1: SOMETHING#5
-ЧТО-ТО2: ANDNEXT#5
-НАЗВАНИЕ: NAME#6
-ЧТО-ТО1: SOMETHING#6
-ЧТО-ТО2: ANDNEXT#6
-НАЗВАНИЕ: NAME#7
-ЧТО-ТО1: SOMETHING#7
-ЧТО-ТО2: ANDNEXT#7
-НАЗВАНИЕ: NAME#8
-ЧТО-ТО1: SOMETHING#8
-ЧТО-ТО2: ANDNEXT#8
-НАЗВАНИЕ: NAME#9
-ЧТО-ТО1: SOMETHING#9
-ЧТО-ТО2: ANDNEXT#9
-НАЗВАНИЕ: NAME#10
-ЧТО-ТО1: SOMETHING#10
-ЧТО-ТО2: ANDNEXT#10
+MODEL: Honda Civic
+YEAR: 2015
+POWER: 200
+MODEL: Lada Жигуль
+YEAR: 1983
+POWER: 59
+MODEL: Toyota Camry
+YEAR: 2010
+POWER: 145
+MODEL: Porsche 911
+YEAR: 1990
+POWER: 424
+MODEL: Chevrolet Corvette
+YEAR: 2025
+POWER: 1164
+MODEL: VAZ 2101
+YEAR: 1982
+POWER: 81
+MODEL: Lada Vesta
+YEAR: 2015
+POWER: 106
+MODEL: Chevrolet Lanos
+YEAR: 2010
+POWER: 86
+MODEL: Nissan Note
+YEAR: 2009
+POWER: 95
+MODEL: Peugeot 207i
+YEAR: 2023
+POWER: 113
