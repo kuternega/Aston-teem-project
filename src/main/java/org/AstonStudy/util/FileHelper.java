@@ -8,7 +8,7 @@ public class FileHelper {
     public static void appendToFile(String fileName, Collection<?> collection) {
         try(BufferedWriter out = new BufferedWriter(new FileWriter(fileName))) {
             for (Object element : collection) {
-                String outString = String.format("%s;%s;%s", ((Car) element).getPower(), ((Car) element).getModel(), ((Car) element).getYear());
+                String outString = String.format("%s;%s;%s\n", ((Car) element).getPower(), ((Car) element).getModel(), ((Car) element).getYear());
                 out.write(outString);
             }
         }
