@@ -2,7 +2,7 @@ package org.AstonStudy.ui;
 
 import java.util.Scanner;
 
-public static class Menu {
+public class Menu {
     public static Language language = Language.ENGLISH;
     public static FieldOfSort fieldOfSort = FieldOfSort.POWER;
     public static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
@@ -11,7 +11,7 @@ public static class Menu {
         int choice = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.clear();
+            System.out.print("\\033[H\\033[2J");
             String menuEng = """
                 1.Fill collection
                 2.Choose field of sort
@@ -50,7 +50,7 @@ public static class Menu {
         int choiceFillMenu = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.clear();
+            System.out.print("\\033[H\\033[2J");
             String fillMenuEng = """
                 1.File
                 2.Random
@@ -70,7 +70,7 @@ public static class Menu {
                 case 1 -> System.out.println("N/a"); //Вызвать метод, который заполнит коллекцию из файла
                 case 2 -> System.out.println("N/a"); //Вызвать метод, который заполнит коллекцию случайными элементами
                 case 3 -> System.out.println("N/a"); //Вызвать метод, который заполнит коллекцию элементами, введенными пользователем
-                case 4 -> break;
+                case 4 -> System.out.println("Returning to menu.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
         } while (choiceFillMenu != 4);
@@ -80,7 +80,7 @@ public static class Menu {
         int choiceFieldOfSort = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.clear();
+            System.out.print("\\033[H\\033[2J");
             String fieldMenuEng = """
                 1.Power
                 2.Model
@@ -100,7 +100,7 @@ public static class Menu {
                 case 1 -> fieldOfSort = FieldOfSort.POWER;
                 case 2 -> fieldOfSort = FieldOfSort.MODEL;
                 case 3 -> fieldOfSort = FieldOfSort.YEAR;
-                case 4 -> break;
+                case 4 -> System.out.println("Returning to menu.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
         } while (choiceFieldOfSort != 4);
@@ -110,7 +110,7 @@ public static class Menu {
         int choiceSortAlgo = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.clear();
+            System.out.print("\\033[H\\033[2J");
             String sortMenuEng = """
                 1.Bubble sort
                 2.Insert sort
@@ -127,7 +127,7 @@ public static class Menu {
             switch (choiceSortAlgo) {
                 case 1 -> sortAlgo = SortAlgo.BUBBLE_SORT;
                 case 2 -> sortAlgo = SortAlgo.INSERT_SORT;
-                case 3 -> break;
+                case 3 -> System.out.println("Returning to menu.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
         } while (choiceSortAlgo != 3);
