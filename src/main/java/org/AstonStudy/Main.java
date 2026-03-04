@@ -19,42 +19,5 @@ public class Main {
             // для вас, но вы всегда можете добавить еще, нажав <shortcut actionId="ToggleLineBreakpoint"/>.
             IO.println("i = " + i);
         }
-
-
-        DefaultClassLoader def = new DefaultClassLoader();
-        def.load();
-        List<Car> records = def.getCarRecord();
-        if (records.isEmpty()) {
-            System.out.println("Записей не загружено. Проверьте файл ClassLoader/DefaultClassLoaderFile");
-        } else {
-            System.out.println("Загружено записей: " + records.size());
-            for (Car car : records) {
-                System.out.println(car.getModel() + " | " + car.getYear() + " | " + car.getPower());
-            }
-        }
-
-        EditedClassLoader edit = new EditedClassLoader();
-        edit.load();
-        List<Car> editedRecords = edit.getCarRecord();
-        if (editedRecords.isEmpty()) {
-            System.out.println("Записей не загружено. Проверьте файл ClassLoader/EditedClassLoaderFile");
-        } else {
-            System.out.println("Загружено записей: " + editedRecords.size());
-            for (Car car : editedRecords) {
-                System.out.println(car.getModel() + " | " + car.getYear() + " | " + car.getPower());
-            }
-        }
-
-        NewClassLoader newClassLoader = new NewClassLoader();
-        newClassLoader.load();
-        List<Car> newRecords = newClassLoader.getCarRecord();
-        if (newRecords.isEmpty()) {
-            System.out.println("Записей не загружено. Проверьте файл ClassLoader/EditedClassLoaderFile");
-        } else {
-            System.out.println("Загружено записей: " + newRecords.size());
-            for (Car car : newRecords) {
-                System.out.println(car.getModel() + " | " + car.getYear() + " | " + car.getPower());
-            }
-        }
     }
 }
