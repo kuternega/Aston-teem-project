@@ -1,6 +1,6 @@
 package org.AstonStudy.util;
 
-import org.AstonStudy.Car;
+import org.AstonStudy.model.Car;
 import org.junit.jupiter.api.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
