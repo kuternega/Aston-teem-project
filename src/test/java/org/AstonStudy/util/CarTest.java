@@ -105,7 +105,8 @@ class CarTest {
             cars = Arrays.asList(
                     new Car.Builder().power(200).model("BMW").year(2021).build(),
                     new Car.Builder().power(180).model("Audi").year(2020).build(),
-                    new Car.Builder().power(150).model("Toyota").year(2019).build()
+                    new Car.Builder().power(150).model("Toyota").year(2019).build(),
+                    new Car.Builder().power(180).model("Opel").year(2018).build()
 
             );
         }
@@ -117,7 +118,8 @@ class CarTest {
 
             assertEquals(150, cars.get(0).getPower());
             assertEquals(180, cars.get(1).getPower());
-            assertEquals(200, cars.get(2).getPower());
+            assertEquals(180, cars.get(2).getPower());
+            assertEquals(200, cars.get(3).getPower());
         }
 
         @Test
@@ -127,7 +129,8 @@ class CarTest {
 
             assertEquals("Audi", cars.get(0).getModel());
             assertEquals("BMW", cars.get(1).getModel());
-            assertEquals("Toyota", cars.get(2).getModel());
+            assertEquals("Opel", cars.get(2).getModel());
+            assertEquals("Toyota", cars.get(3).getModel());
         }
 
         @Test
@@ -135,24 +138,27 @@ class CarTest {
         void testSortByYear() {
             cars.sort(Car.byYear());
 
-            assertEquals(2019, cars.get(0).getYear());
-            assertEquals(2020, cars.get(1).getYear());
-            assertEquals(2021, cars.get(2).getYear());
+            assertEquals(2018, cars.get(0).getYear());
+            assertEquals(2019, cars.get(1).getYear());
+            assertEquals(2020, cars.get(2).getYear());
+            assertEquals(2021, cars.get(3).getYear());
         }
 
         @Test
         @DisplayName("Компараторы можно комбинировать")
         void testChainedComparators() {
-            // Добавляем машину с такой же мощностью как у Audi, но старше
-            cars.add(new Car.Builder().power(180).model("Opel").year(2018).build());
-
-            cars.sort(Car.byPower().thenComparing(Car.byYear()));
+            cars.sort(Car.byPowerByYear());
 
 
-            assertEquals(150, cars.get(0).getPower()); // Toyota 150 (2019)
-            assertEquals(180, cars.get(1).getPower()); // Opel 180 (2018)
-            assertEquals(180, cars.get(2).getPower()); // Audi 180 (2020)
-            assertEquals(200, cars.get(3).getPower()); // BMW 200 (2021)
+            assertEquals(150, cars.get(0).getPower());
+            assertEquals(180, cars.get(1).getPower());
+            assertEquals(180, cars.get(2).getPower());
+            assertEquals(200, cars.get(3).getPower());
+
+            assertEquals(2019, cars.get(0).getYear());
+            assertEquals(2018, cars.get(1).getYear());
+            assertEquals(2020, cars.get(2).getYear());
+            assertEquals(2021, cars.get(3).getYear());
         }
     }
 }

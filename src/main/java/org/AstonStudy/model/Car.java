@@ -33,6 +33,12 @@ public class Car {
         return (car1, car2) -> Integer.compare(car1.year, car2.year);
     }
 
+    public static Comparator<Car> byPowerByYear() {
+        return Comparator
+                .comparingInt(Car::getPower)
+                .thenComparingInt(Car::getYear);
+    }
+
     public int getPower() {
         return power;
     }
