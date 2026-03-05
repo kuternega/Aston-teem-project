@@ -56,12 +56,12 @@ public class DataProvider {
                 .collect(MyArrayList::new, MyArrayList::add, MyArrayList::addAll);
     }
 
-    public static MyArrayList<Car> manual(Scanner scanner, int count) {
+    public static MyArrayList<Car> manual(Scanner scanner ,int count) {
+
         MyArrayList<Car> carMyArrayList = new MyArrayList<>();
         System.out.println("Вводите автомобили в формате: мощность;модель;год");
         for (int i = 0; i < count; i++) {
             while (true) {
-                System.out.printf("Автомобиль %d", i+1);
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
                 if (parts.length != 3) {
