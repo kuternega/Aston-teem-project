@@ -1,6 +1,6 @@
 package org.AstonStudy.util;
 
-import org.AstonStudy.Car;
+import org.AstonStudy.model.Car;
 import java.io.*;
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package org.AstonStudy;
+package org.AstonStudy.model;
 
 import java.util.Comparator;
 import java.util.Objects;

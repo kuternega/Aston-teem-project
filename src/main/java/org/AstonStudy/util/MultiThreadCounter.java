@@ -1,6 +1,6 @@
 package org.AstonStudy.util;
 
-import org.AstonStudy.Car;
+import org.AstonStudy.model.Car;
 import org.AstonStudy.Collection.MyArrayList;
 import java.util.ArrayList;
 import java.util.List;

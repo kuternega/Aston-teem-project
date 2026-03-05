@@ -1,6 +1,6 @@
 package org.AstonStudy.Data;
 
-import org.AstonStudy.Car;
+import org.AstonStudy.model.Car;
 
 import java.io.IOException;
 import java.nio.file.Files;
