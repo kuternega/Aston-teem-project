@@ -33,6 +33,12 @@ public class Car {
         return (car1, car2) -> Integer.compare(car1.year, car2.year);
     }
 
+    public static Comparator<Car> byPowerByYear() {
+        return Comparator
+                .comparingInt(Car::getPower)
+                .thenComparingInt(Car::getYear);
+    }
+
     public int getPower() {
         return power;
     }
@@ -133,10 +139,6 @@ public class Car {
                         "Ошибка: модель должна содержать минимум 2 символа, получено: " + model);
             }
 
-            if (model.matches(".*\\d.*")) {
-                throw new IllegalArgumentException(
-                        "Ошибка: модель не должна содержать цифры: " + model);
-            }
         }
 
         private void validateYear() {
@@ -144,7 +146,7 @@ public class Car {
 
             if (year < 1980) {
                 throw new IllegalArgumentException(
-                        "Ошибка: год не может быть раньше 1970, получено: " + year);
+                        "Ошибка: год не может быть раньше 1980, получено: " + year);
             }
             if (year > currentYear + 1) {
                 throw new IllegalArgumentException(
