@@ -22,16 +22,17 @@ public class Car {
                 .build();
     }
     public static Comparator<Car> byPower() {
-        return (car1, car2) -> Integer.compare(car1.power, car2.power); }
-        public static Comparator<Car> byModel() {
-            return (car1, car2) -> car1.model.compareTo(car2.model); }
+        return (car1, car2) -> Integer.compare(car1.power, car2.power);
+    }
 
     public static Comparator<Car> byModel() {
-        return (car1, car2) -> car1.model.compareTo(car2.model);
+            return (car1, car2) -> car1.model.compareTo(car2.model);
     }
+
     public static Comparator<Car> byYear() {
         return (car1, car2) -> Integer.compare(car1.year, car2.year);
     }
+
     public int getPower() {
         return power;
     }
