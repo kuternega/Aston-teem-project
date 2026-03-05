@@ -131,8 +131,19 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод addAll будет реализован позже");
+        Objects.requireNonNull(c, "Коллекция не может быть null");
+
+        if (c.isEmpty()) {
+            return false;
+        }
+
+        ensureCapacity(size + c.size());
+
+        for (T elem : c) {
+            elements[size++] = elem;
+        }
+
+        return true;
     }
 
     @Override
@@ -155,8 +166,22 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void clear() {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод clear будет реализован позже");
+        if (isEmpty()) {
+            return;
+        }
+        if (size() == MyArrayList.DEFAULT_CAPACITY) {
+            for (int i = 0; i < DEFAULT_CAPACITY; i++) {
+                // Очистка коллекции, стоит заглушка пока нет remove()
+                elements[i] = null;
+            }
+            size = 0;
+        } else {
+            for (int i = 0; i < size(); i++) {
+                // Очистка коллекции, стоит заглушка пока нет remove()
+                elements[i] = null;
+            }
+            size = 0;
+        }
     }
 
     @Override
