@@ -137,12 +137,16 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
 
-        ensureCapacity(size + collection.size());
+        int newSize = size + collection.size();
+        Object[] newElements = Arrays.copyOf(elements, newSize);
+        int i = size;
 
-        for (T elem : collection) {
-            elements[size++] = elem;
+        for (T element : collection) {
+            elements[i++] = element;
         }
 
+        elements = newElements;
+        size = newSize;
         return true;
     }
 
