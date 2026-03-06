@@ -130,16 +130,16 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        Objects.requireNonNull(c, "Коллекция не может быть null");
+    public boolean addAll(Collection<? extends T> collection) {
+        Objects.requireNonNull(collection, "Коллекция не может быть null");
 
-        if (c.isEmpty()) {
+        if (collection.isEmpty()) {
             return false;
         }
 
-        ensureCapacity(size + c.size());
+        ensureCapacity(size + collection.size());
 
-        for (T elem : c) {
+        for (T elem : collection) {
             elements[size++] = elem;
         }
 
