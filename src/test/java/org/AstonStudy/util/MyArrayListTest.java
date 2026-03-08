@@ -238,4 +238,124 @@ class MyArrayListTest {
             assertTrue(carList.contains(null));
         }
     }
+
+    @Nested
+    @DisplayName("Тесты методов add(index, element) и remove(index)")
+    class IndexedOperationsTests {
+
+        private MyArrayList<String> list;
+
+        @BeforeEach
+        void setUp() {
+            list = new MyArrayList<>();
+            list.add("A");
+            list.add("B");
+            list.add("C");
+        }
+
+        @Test
+        @DisplayName("add в начало")
+        void addAtBeginning() {
+            list.add(0, "X");
+            assertEquals(4, list.size());
+            assertAll(
+                    () -> assertEquals("X", list.get(0)),
+                    () -> assertEquals("A", list.get(1)),
+                    () -> assertEquals("B", list.get(2)),
+                    () -> assertEquals("C", list.get(3))
+            );
+        }
+
+        @Test
+        @DisplayName("add в середину")
+        void addAtMiddle() {
+            list.add(2, "Y");
+            assertEquals(4, list.size());
+            assertAll(
+                    () -> assertEquals("A", list.get(0)),
+                    () -> assertEquals("B", list.get(1)),
+                    () -> assertEquals("Y", list.get(2)),
+                    () -> assertEquals("C", list.get(3))
+            );
+        }
+
+        @Test
+        @DisplayName("add в конец")
+        void addAtEnd() {
+            list.add(3, "Z");
+            assertEquals(4, list.size());
+            assertAll(
+                    () -> assertEquals("A", list.get(0)),
+                    () -> assertEquals("B", list.get(1)),
+                    () -> assertEquals("C", list.get(2)),
+                    () -> assertEquals("Z", list.get(3))
+            );
+        }
+
+        @Test
+        @DisplayName("add с неверным индексом")
+        void addWithInvalidIndex() {
+            assertAll(
+                    () -> assertThrows(IndexOutOfBoundsException.class,
+                            () -> list.add(-1, "Invalid")),
+                    () -> assertThrows(IndexOutOfBoundsException.class,
+                            () -> list.add(4, "Invalid"))
+            );
+        }
+
+        @Test
+        @DisplayName("remove из начала")
+        void removeFromBeginning() {
+            String removed = list.remove(0);
+            assertEquals("A", removed);
+            assertEquals(2, list.size());
+            assertAll(
+                    () -> assertEquals("B", list.get(0)),
+                    () -> assertEquals("C", list.get(1))
+            );
+        }
+
+        @Test
+        @DisplayName("remove из середины")
+        void removeFromMiddle() {
+            String removed = list.remove(1);
+            assertEquals("B", removed);
+            assertEquals(2, list.size());
+            assertAll(
+                    () -> assertEquals("A", list.get(0)),
+                    () -> assertEquals("C", list.get(1))
+            );
+        }
+
+        @Test
+        @DisplayName("remove из конца")
+        void removeFromEnd() {
+            String removed = list.remove(2);
+            assertEquals("C", removed);
+            assertEquals(2, list.size());
+            assertAll(
+                    () -> assertEquals("A", list.get(0)),
+                    () -> assertEquals("B", list.get(1))
+            );
+        }
+
+        @Test
+        @DisplayName("remove с неверным индексом")
+        void removeWithInvalidIndex() {
+            assertAll(
+                    () -> assertThrows(IndexOutOfBoundsException.class,
+                            () -> list.remove(-1)),
+                    () -> assertThrows(IndexOutOfBoundsException.class,
+                            () -> list.remove(3))
+            );
+        }
+
+        @Test
+        @DisplayName("remove из пустого списка")
+        void removeFromEmpty() {
+            MyArrayList<String> empty = new MyArrayList<>();
+            assertThrows(IndexOutOfBoundsException.class,
+                    () -> empty.remove(0));
+        }
+    }
 }
