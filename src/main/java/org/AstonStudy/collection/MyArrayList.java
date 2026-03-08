@@ -8,12 +8,10 @@ public class MyArrayList<T> implements List<T> {
     private Object[] elements;
     private int size;
 
-
     public MyArrayList() {
         this.elements = new Object[DEFAULT_CAPACITY];
         this.size = 0;
     }
-
 
     public MyArrayList(int initialCapacity) {
         if (initialCapacity < 0) {
@@ -23,28 +21,22 @@ public class MyArrayList<T> implements List<T> {
         this.size = 0;
     }
 
-
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Индекс вне границ: " + index + ", размер: " + size);
         }
     }
 
-
     private void ensureCapacity(int minCapacity) {
         int oldCapacity = elements.length;
         if (minCapacity > oldCapacity) {
-
             int newCapacity = oldCapacity + (oldCapacity >> 1);
-
             if (newCapacity < minCapacity) {
                 newCapacity = minCapacity;
             }
             elements = Arrays.copyOf(elements, newCapacity);
         }
     }
-
-
 
     @Override
     public int size() {
@@ -80,6 +72,31 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
+    public void add(int index, T element) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        ensureCapacity(size + 1);
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
+    }
+
+    @Override
+    public T remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        T removed = (T) elements[index];
+        int numMoved = size - index - 1;
+        if (numMoved > 0) {
+            System.arraycopy(elements, index + 1, elements, index, numMoved);
+        }
+        elements[--size] = null;
+        return removed;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
@@ -91,7 +108,6 @@ public class MyArrayList<T> implements List<T> {
         sb.append("]");
         return sb.toString();
     }
-
 
     @Override
     public boolean contains(Object o) {
@@ -132,19 +148,15 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(Collection<? extends T> collection) {
         Objects.requireNonNull(collection, "Коллекция не может быть null");
-
         if (collection.isEmpty()) {
             return false;
         }
-
         int newSize = size + collection.size();
         Object[] newElements = Arrays.copyOf(elements, newSize);
         int i = size;
-
         for (T element : collection) {
             elements[i++] = element;
         }
-
         elements = newElements;
         size = newSize;
         return true;
@@ -186,18 +198,6 @@ public class MyArrayList<T> implements List<T> {
             }
             size = 0;
         }
-    }
-
-    @Override
-    public void add(int index, T element) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод add(int, T) будет реализован позже");
-    }
-
-    @Override
-    public T remove(int index) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод remove(int) будет реализован позже");
     }
 
     @Override
