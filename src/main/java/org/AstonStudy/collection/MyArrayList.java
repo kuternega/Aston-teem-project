@@ -95,8 +95,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод contains будет реализован позже");
+        return indexOf(o) != -1;
     }
 
     @Override
@@ -202,14 +201,30 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод indexOf будет реализован позже");
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) return i;
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elements[i])) return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод lastIndexOf будет реализован позже");
+        if (o == null) {
+            for (int i = size - 1; i >= 0; i--) {
+                if (elements[i] == null) return i;
+            }
+        } else {
+            for (int i = size - 1; i >= 0; i--) {
+                if (o.equals(elements[i])) return i;
+            }
+        }
+        return -1;
     }
 
     @Override
