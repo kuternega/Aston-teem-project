@@ -190,4 +190,52 @@ class MyArrayListTest {
             assertEquals(160, carList.get(0).getPower());
         }
     }
+
+    @Nested
+    @DisplayName("Тесты методов поиска indexOf, lastIndexOf, contains")
+    class SearchMethodsTests {
+
+        private MyArrayList<Car> carList;
+        private Car carA, carB, carC, nonExistent;
+
+        @BeforeEach
+        void setUp() {
+            carList = new MyArrayList<>();
+            carA = new Car.Builder().power(150).model("AA").year(2010).build();
+            carB = new Car.Builder().power(200).model("BB").year(2012).build();
+            carC = new Car.Builder().power(180).model("CC").year(2011).build();
+
+            carList.add(carA);
+            carList.add(carB);
+            carList.add(carA);
+            carList.add(null);
+        }
+
+        @Test
+        @DisplayName("indexOf возвращает первое вхождение или -1")
+        void testIndexOf() {
+            assertEquals(0, carList.indexOf(carA));
+            assertEquals(1, carList.indexOf(carB));
+            assertEquals(-1, carList.indexOf(carC));
+            assertEquals(3, carList.indexOf(null));
+        }
+
+        @Test
+        @DisplayName("lastIndexOf возвращает последнее вхождение или -1")
+        void testLastIndexOf() {
+            assertEquals(2, carList.lastIndexOf(carA));
+            assertEquals(1, carList.lastIndexOf(carB));
+            assertEquals(-1, carList.lastIndexOf(carC));
+            assertEquals(3, carList.lastIndexOf(null));
+        }
+
+        @Test
+        @DisplayName("contains возвращает true, если элемент присутствует")
+        void testContains() {
+            assertTrue(carList.contains(carA));
+            assertTrue(carList.contains(carB));
+            assertFalse(carList.contains(carC));
+            assertTrue(carList.contains(null));
+        }
+    }
 }
