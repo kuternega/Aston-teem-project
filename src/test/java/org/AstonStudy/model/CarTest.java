@@ -1,6 +1,5 @@
-package org.AstonStudy.util;
+package org.AstonStudy.model;
 
-import org.AstonStudy.model.Car;
 import org.junit.jupiter.api.*;
 import java.util.Arrays;
 import java.util.List;
