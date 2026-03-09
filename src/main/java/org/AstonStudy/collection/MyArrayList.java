@@ -189,14 +189,27 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод add(int, T) будет реализован позже");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        ensureCapacity(size + 1);
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
     }
 
     @Override
     public T remove(int index) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод remove(int) будет реализован позже");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        T removed = (T) elements[index];
+        int numMoved = size - index - 1;
+        if (numMoved > 0) {
+            System.arraycopy(elements, index + 1, elements, index, numMoved);
+        }
+        elements[--size] = null;
+        return removed;
     }
 
     @Override
