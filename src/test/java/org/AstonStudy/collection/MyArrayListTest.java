@@ -1,6 +1,5 @@
-package org.AstonStudy.util;
+package org.AstonStudy.collection;
 
-import org.AstonStudy.collection.MyArrayList;
 import org.AstonStudy.model.Car;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;

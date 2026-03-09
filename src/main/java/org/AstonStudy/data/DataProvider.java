@@ -1,4 +1,4 @@
-package org.AstonStudy.Data;
+package org.AstonStudy.data;
 
 import org.AstonStudy.collection.MyArrayList;
 import org.AstonStudy.model.Car;

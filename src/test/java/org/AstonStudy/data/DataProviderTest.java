@@ -1,6 +1,5 @@
-package org.AstonStudy.util;
+package org.AstonStudy.data;
 
-import org.AstonStudy.Data.DataProvider;
 import org.AstonStudy.collection.MyArrayList;
 import org.AstonStudy.model.Car;
 import org.junit.jupiter.api.DisplayName;
