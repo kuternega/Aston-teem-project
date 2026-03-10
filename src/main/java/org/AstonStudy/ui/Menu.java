@@ -78,12 +78,12 @@ public class Menu {
                         sortingStrategy = new InsertionSortStrategy<>();
                     }
                     if (fieldOfSort == FieldOfSort.MODEL) {
-                        OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byModel());
+                        System.out.println(language == Language.ENGLISH ? "Model can't be even/odd" : "Модель не может быть четной/нечетной");
                     } else if (fieldOfSort == FieldOfSort.POWER) {
-                        OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, Car::getPower,sortingStrategy, Car.byPower());
+                        OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getPower, sortingStrategy, Car.byPower());
                     }
                     else {
-                        OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byYear());
+                        OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
                     }
                 } //Вызвать алгоритм четно-нечетной сортировки
                 case 6 -> FileHelper.appendToFile("Collection.txt", collection);
