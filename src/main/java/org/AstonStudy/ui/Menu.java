@@ -11,6 +11,7 @@ import org.AstonStudy.util.FileHelper;
 import org.AstonStudy.util.MultiThreadCounter;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +20,7 @@ public class Menu {
     public static FieldOfSort fieldOfSort = FieldOfSort.POWER;
     public static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
     public static Collection collection = null;
+    public static MyArrayList<Car> myList = new MyArrayList<>();
 
     public static void showMenu() {
         int choice = 0;
@@ -80,7 +82,7 @@ public class Menu {
                     if (fieldOfSort == FieldOfSort.MODEL) {
                         OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byModel());
                     } else if (fieldOfSort == FieldOfSort.POWER) {
-                        OddEvenSorter.sortByEven(MyArrayList<Car> DataProvider.random(8), Car::getPower, 8);
+                        OddEvenSorter.sortByEven(myList, Car::getPower, sortingStrategy, Car.byPower());
                     }
                     else {
                         OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byYear());
