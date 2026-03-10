@@ -55,6 +55,10 @@ public class Menu {
                 case 2 -> showFieldOfSortMenu();
                 case 3 -> showSortAlgoMenu();
                 case 4 -> {
+                    if (collection == null) {
+                        System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
+                        break;
+                    }
                     SortingStrategy<Car> sortingStrategy;
                     if (sortAlgo == SortAlgo.BUBBLE_SORT) {
                         sortingStrategy = new BubbleSortStrategy<>();
