@@ -44,9 +44,9 @@ public class DataProvider {
         Random random = new Random();
         return IntStream.range(0, count)
                 .mapToObj(i -> {
-                    int power = 50 + random.nextInt(451);
+                    int power = 50 + random.nextInt(1951);
                     String model = "Model" + (random.nextInt(100) + 1);
-                    int year = 1990 + random.nextInt(36);
+                    int year = 1980 + random.nextInt(46);
                     return new Car.Builder()
                             .power(power)
                             .model(model)
