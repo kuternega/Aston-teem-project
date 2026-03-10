@@ -80,7 +80,7 @@ public class Menu {
                     if (fieldOfSort == FieldOfSort.MODEL) {
                         OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byModel());
                     } else if (fieldOfSort == FieldOfSort.POWER) {
-                        OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, Car::getPower,sortingStrategy, Car.byPower());
+                        OddEvenSorter.sortByEven(MyArrayList<Car> DataProvider.random(8), Car::getPower, 8);
                     }
                     else {
                         OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byYear());
