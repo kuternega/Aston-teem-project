@@ -2,6 +2,9 @@ package org.AstonStudy.collection;
 
 import org.AstonStudy.model.Car;
 import org.junit.jupiter.api.*;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
@@ -355,6 +358,66 @@ class MyArrayListTest {
             MyArrayList<String> empty = new MyArrayList<>();
             assertThrows(IndexOutOfBoundsException.class,
                     () -> empty.remove(0));
+        }
+
+        @Test
+        @DisplayName("clearTest")
+        void clearTest() {
+            MyArrayList<String> list = new MyArrayList<>();
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            list.clear();
+            assertEquals(0, list.size());
+            assertTrue(list.isEmpty());
+        }
+
+        @Test
+        @DisplayName("addAllTest")
+        void addAllTest() {
+            MyArrayList<String> list = new MyArrayList<>();
+            List<String> ALPHABET = List.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+                    "S", "T", "U", "V", "W", "X", "Y", "Z");
+            List<String> alphabet = List.of("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+                    "s", "t", "u", "v", "w", "x", "y", "z");
+
+            list.addAll(ALPHABET);
+            list.addAll(alphabet);
+            assertEquals(52, list.size());
+            assertFalse(list.isEmpty());
+        }
+
+        @Test
+        @DisplayName("toArray()")
+        void toArray() {
+            MyArrayList<String> list = new MyArrayList<>();
+            list.add("A");
+            list.add("B");
+            Object[] objects = list.toArray();
+            assertEquals("A", objects[0]);
+            assertEquals("B", objects[1]);
+        }
+
+        @Test
+        @DisplayName("toArray(T1[]a)")
+        void toArrayT1() {
+            MyArrayList<String> list = new MyArrayList<>();
+            list.add("A");
+            list.add("B");
+
+            String[] stringArray = list.toArray(new String[0]);
+            assertEquals("A", stringArray[0]);
+            assertEquals("B", stringArray[1]);
+            assertEquals(2, stringArray.length);
+
+            String[] bigArray = new String[5];
+            String[] result = list.toArray(bigArray);
+            assertArrayEquals(bigArray, result);
+            assertEquals("A", bigArray[0]);
+            assertEquals("B", bigArray[1]);
+            for (int i = 2; i < 5; i++) {
+                assertNull(bigArray[i]);
+            }
         }
     }
 }
