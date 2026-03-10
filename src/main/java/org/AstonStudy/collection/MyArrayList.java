@@ -106,14 +106,23 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод toArray будет реализован позже");
+        return Arrays.copyOf(elements, size);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T1> T1[] toArray(T1[] a) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод toArray(T1[]) будет реализован позже");
+        if (a.length < size) {
+            return (T1[]) Arrays.copyOf(elements, size, a.getClass());
+        }
+
+        System.arraycopy(elements, 0, a, 0, size);
+
+        if (a.length > size) {
+            a[size] = null;
+        }
+
+        return a;
     }
 
     @Override
@@ -137,11 +146,13 @@ public class MyArrayList<T> implements List<T> {
         }
 
         int newSize = size + collection.size();
+        ensureCapacity(newSize);
+
         Object[] newElements = Arrays.copyOf(elements, newSize);
         int i = size;
 
         for (T element : collection) {
-            elements[i++] = element;
+            newElements[i++] = element;
         }
 
         elements = newElements;
@@ -172,19 +183,10 @@ public class MyArrayList<T> implements List<T> {
         if (isEmpty()) {
             return;
         }
-        if (size() == MyArrayList.DEFAULT_CAPACITY) {
-            for (int i = 0; i < DEFAULT_CAPACITY; i++) {
-                // Очистка коллекции, стоит заглушка пока нет remove()
-                elements[i] = null;
-            }
-            size = 0;
-        } else {
-            for (int i = 0; i < size(); i++) {
-                // Очистка коллекции, стоит заглушка пока нет remove()
-                elements[i] = null;
-            }
-            size = 0;
+        for (int i = 0; i < size(); i++) {
+            elements[i] = null;
         }
+        size = 0;
     }
 
     @Override
