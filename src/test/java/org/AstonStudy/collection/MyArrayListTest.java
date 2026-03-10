@@ -3,6 +3,8 @@ package org.AstonStudy.collection;
 import org.AstonStudy.model.Car;
 import org.junit.jupiter.api.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,10 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class MyArrayListTest {
 
     private MyArrayList<String> list;
+    private MyArrayList<Car> carList;
+    private Car car1, car2, car3;
 
     @BeforeEach
     void setUp() {
         list = new MyArrayList<>();
+        carList = new MyArrayList<>();
+        car1 = new Car.Builder().power(150).model("AA").year(2010).build();
+        car2 = new Car.Builder().power(200).model("BB").year(2012).build();
+        car3 = new Car.Builder().power(180).model("CC").year(2011).build();
     }
 
     @Nested
@@ -418,6 +426,425 @@ class MyArrayListTest {
             for (int i = 2; i < 5; i++) {
                 assertNull(bigArray[i]);
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты remove(Object)")
+    class RemoveObjectTests {
+
+        @Test
+        @DisplayName("Удаление существующего элемента")
+        void testRemoveExistingElement() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+
+            boolean removed = list.remove("B");
+
+            assertTrue(removed);
+            assertEquals(2, list.size());
+            assertEquals("A", list.get(0));
+            assertEquals("C", list.get(1));
+        }
+
+        @Test
+        @DisplayName("Удаление первого вхождения")
+        void testRemoveFirstOccurrence() {
+            list.add("A");
+            list.add("B");
+            list.add("A");
+            list.add("C");
+
+            boolean removed = list.remove("A");
+
+            assertTrue(removed);
+            assertEquals(3, list.size());
+            assertEquals("B", list.get(0));
+            assertEquals("A", list.get(1));
+            assertEquals("C", list.get(2));
+        }
+
+        @Test
+        @DisplayName("Удаление null")
+        void testRemoveNull() {
+            list.add("A");
+            list.add(null);
+            list.add("B");
+
+            boolean removed = list.remove(null);
+
+            assertTrue(removed);
+            assertEquals(2, list.size());
+            assertEquals("A", list.get(0));
+            assertEquals("B", list.get(1));
+        }
+
+        @Test
+        @DisplayName("Удаление несуществующего элемента")
+        void testRemoveNonExisting() {
+            list.add("A");
+            list.add("B");
+
+            boolean removed = list.remove("X");
+
+            assertFalse(removed);
+            assertEquals(2, list.size());
+        }
+
+        @Test
+        @DisplayName("Удаление из пустого списка")
+        void testRemoveFromEmpty() {
+            boolean removed = list.remove("A");
+            assertFalse(removed);
+        }
+
+        @Test
+        @DisplayName("Удаление автомобиля")
+        void testRemoveCar() {
+            carList.add(car1);
+            carList.add(car2);
+            carList.add(car3);
+
+            boolean removed = carList.remove(car2);
+
+            assertTrue(removed);
+            assertEquals(2, carList.size());
+            assertEquals(car1, carList.get(0));
+            assertEquals(car3, carList.get(1));
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты addAll(int, Collection)")
+    class AddAllAtIndexTests {
+
+        @Test
+        @DisplayName("Добавление в начало списка")
+        void testAddAllAtBeginning() {
+            list.add("C");
+            list.add("D");
+            Collection<String> toAdd = List.of("A", "B");
+
+            boolean changed = list.addAll(0, toAdd);
+
+            assertTrue(changed);
+            assertEquals(4, list.size());
+            assertEquals("A", list.get(0));
+            assertEquals("B", list.get(1));
+            assertEquals("C", list.get(2));
+            assertEquals("D", list.get(3));
+        }
+
+        @Test
+        @DisplayName("Добавление в середину списка")
+        void testAddAllInMiddle() {
+            list.add("A");
+            list.add("D");
+            Collection<String> toAdd = List.of("B", "C");
+
+            boolean changed = list.addAll(1, toAdd);
+
+            assertTrue(changed);
+            assertEquals(4, list.size());
+            assertEquals("A", list.get(0));
+            assertEquals("B", list.get(1));
+            assertEquals("C", list.get(2));
+            assertEquals("D", list.get(3));
+        }
+
+        @Test
+        @DisplayName("Добавление в конец списка")
+        void testAddAllAtEnd() {
+            list.add("A");
+            list.add("B");
+            Collection<String> toAdd = List.of("C", "D");
+
+            boolean changed = list.addAll(2, toAdd);
+
+            assertTrue(changed);
+            assertEquals(4, list.size());
+            assertEquals("A", list.get(0));
+            assertEquals("B", list.get(1));
+            assertEquals("C", list.get(2));
+            assertEquals("D", list.get(3));
+        }
+
+        @Test
+        @DisplayName("Добавление пустой коллекции")
+        void testAddAllEmpty() {
+            list.add("A");
+            Collection<String> empty = Collections.emptyList();
+
+            boolean changed = list.addAll(0, empty);
+
+            assertFalse(changed);
+            assertEquals(1, list.size());
+        }
+
+        @Test
+        @DisplayName("Добавление с неверным индексом (отрицательный)")
+        void testAddAllInvalidIndexNegative() {
+            Collection<String> toAdd = List.of("A");
+            assertThrows(IndexOutOfBoundsException.class,
+                    () -> list.addAll(-1, toAdd));
+        }
+
+        @Test
+        @DisplayName("Добавление с неверным индексом (больше размера)")
+        void testAddAllInvalidIndexTooLarge() {
+            list.add("A");
+            Collection<String> toAdd = List.of("B");
+            assertThrows(IndexOutOfBoundsException.class,
+                    () -> list.addAll(2, toAdd));
+        }
+
+        @Test
+        @DisplayName("Добавление null коллекции")
+        void testAddAllNullCollection() {
+            assertThrows(NullPointerException.class,
+                    () -> list.addAll(0, null));
+        }
+
+        @Test
+        @DisplayName("Проверка расширения массива при добавлении")
+        void testAddAllEnsureCapacity() {
+            MyArrayList<Integer> numbers = new MyArrayList<>(2);
+            numbers.add(1);
+            numbers.add(2);
+            Collection<Integer> toAdd = List.of(3, 4, 5);
+
+            numbers.addAll(2, toAdd);
+
+            assertEquals(5, numbers.size());
+            assertEquals(1, numbers.get(0));
+            assertEquals(2, numbers.get(1));
+            assertEquals(3, numbers.get(2));
+            assertEquals(4, numbers.get(3));
+            assertEquals(5, numbers.get(4));
+        }
+
+        @Test
+        @DisplayName("Добавление автомобилей")
+        void testAddAllCars() {
+            carList.add(car1);
+            Collection<Car> toAdd = List.of(car2, car3);
+
+            boolean changed = carList.addAll(1, toAdd);
+
+            assertTrue(changed);
+            assertEquals(3, carList.size());
+            assertEquals(car1, carList.get(0));
+            assertEquals(car2, carList.get(1));
+            assertEquals(car3, carList.get(2));
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты removeAll(Collection)")
+    class RemoveAllTests {
+
+        @Test
+        @DisplayName("Удаление нескольких элементов")
+        void testRemoveAll() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            list.add("B");
+            list.add("D");
+            Collection<String> toRemove = List.of("B", "D");
+
+            boolean changed = list.removeAll(toRemove);
+
+            assertTrue(changed);
+            assertEquals(2, list.size());
+            assertEquals("A", list.get(0));
+            assertEquals("C", list.get(1));
+        }
+
+        @Test
+        @DisplayName("Удаление всех элементов")
+        void testRemoveAllEverything() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            Collection<String> toRemove = List.of("A", "B", "C");
+
+            boolean changed = list.removeAll(toRemove);
+
+            assertTrue(changed);
+            assertTrue(list.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Удаление элементов, которых нет в списке")
+        void testRemoveAllNonExisting() {
+            list.add("A");
+            list.add("B");
+            Collection<String> toRemove = List.of("X", "Y");
+
+            boolean changed = list.removeAll(toRemove);
+
+            assertFalse(changed);
+            assertEquals(2, list.size());
+        }
+
+        @Test
+        @DisplayName("Удаление с пустой коллекцией")
+        void testRemoveAllEmpty() {
+            list.add("A");
+            Collection<String> empty = Collections.emptyList();
+
+            boolean changed = list.removeAll(empty);
+
+            assertFalse(changed);
+            assertEquals(1, list.size());
+        }
+
+        @Test
+        @DisplayName("Удаление с null коллекцией")
+        void testRemoveAllNull() {
+            assertThrows(NullPointerException.class,
+                    () -> list.removeAll(null));
+        }
+
+        @Test
+        @DisplayName("Удаление дубликатов")
+        void testRemoveAllDuplicates() {
+            list.add("A");
+            list.add("B");
+            list.add("A");
+            list.add("C");
+            list.add("A");
+            Collection<String> toRemove = List.of("A");
+
+            boolean changed = list.removeAll(toRemove);
+
+            assertTrue(changed);
+            assertEquals(2, list.size());
+            assertEquals("B", list.get(0));
+            assertEquals("C", list.get(1));
+        }
+
+        @Test
+        @DisplayName("Удаление автомобилей")
+        void testRemoveAllCars() {
+            carList.add(car1);
+            carList.add(car2);
+            carList.add(car3);
+            carList.add(car2);
+            Collection<Car> toRemove = List.of(car2, car3);
+
+            boolean changed = carList.removeAll(toRemove);
+
+            assertTrue(changed);
+            assertEquals(1, carList.size());
+            assertEquals(car1, carList.get(0));
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты retainAll(Collection)")
+    class RetainAllTests {
+
+        @Test
+        @DisplayName("Оставить только указанные элементы")
+        void testRetainAll() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            list.add("B");
+            list.add("D");
+            Collection<String> toRetain = List.of("B", "D");
+
+            boolean changed = list.retainAll(toRetain);
+
+            assertTrue(changed);
+            assertEquals(3, list.size());
+            assertEquals("B", list.get(0));
+            assertEquals("B", list.get(1));
+            assertEquals("D", list.get(2));
+        }
+
+        @Test
+        @DisplayName("Пустая коллекция для retainAll удаляет все элементы")
+        void testRetainAllEmpty() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            Collection<String> empty = Collections.emptyList();
+
+            boolean changed = list.retainAll(empty);
+
+            assertTrue(changed);
+            assertTrue(list.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Коллекция содержит все элементы (изменений нет)")
+        void testRetainAllAllPresent() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            Collection<String> toRetain = List.of("A", "B", "C");
+
+            boolean changed = list.retainAll(toRetain);
+
+            assertFalse(changed);
+            assertEquals(3, list.size());
+        }
+
+        @Test
+        @DisplayName("Коллекция содержит больше элементов, чем список")
+        void testRetainAllSuperset() {
+            list.add("A");
+            list.add("B");
+            Collection<String> toRetain = List.of("A", "B", "C", "D");
+
+            boolean changed = list.retainAll(toRetain);
+
+            assertFalse(changed); // ничего не удалили
+            assertEquals(2, list.size());
+        }
+
+        @Test
+        @DisplayName("Удаление всех элементов, кроме одного")
+        void testRetainAllSingle() {
+            list.add("A");
+            list.add("B");
+            list.add("C");
+            Collection<String> toRetain = List.of("B");
+
+            boolean changed = list.retainAll(toRetain);
+
+            assertTrue(changed);
+            assertEquals(1, list.size());
+            assertEquals("B", list.get(0));
+        }
+
+        @Test
+        @DisplayName("retainAll с null коллекцией")
+        void testRetainAllNull() {
+            assertThrows(NullPointerException.class,
+                    () -> list.retainAll(null));
+        }
+
+        @Test
+        @DisplayName("retainAll с автомобилями")
+        void testRetainAllCars() {
+            carList.add(car1);
+            carList.add(car2);
+            carList.add(car3);
+            carList.add(car2);
+            Collection<Car> toRetain = List.of(car1, car2);
+
+            boolean changed = carList.retainAll(toRetain);
+
+            assertTrue(changed);
+            assertEquals(3, carList.size());
+            assertEquals(car1, carList.get(0));
+            assertEquals(car2, carList.get(1));
+            assertEquals(car2, carList.get(2));
         }
     }
 }

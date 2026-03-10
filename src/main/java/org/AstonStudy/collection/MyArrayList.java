@@ -100,8 +100,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод iterator будет реализован позже");
+        return new MyIterator();
     }
 
     @Override
@@ -127,14 +126,23 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод remove будет реализован позже");
+        int index = indexOf(o);
+        if (index >= 0) {
+            remove(index);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод containsAll будет реализован позже");
+        Objects.requireNonNull(c);
+        for (Object item : c) {
+            if (!contains(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -162,20 +170,48 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод addAll(int, Collection) будет реализован позже");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        Objects.requireNonNull(c, "Коллекция не может быть null");
+        if (c.isEmpty()) {
+            return false;
+        }
+        int cSize = c.size();
+        ensureCapacity(size + cSize);
+        System.arraycopy(elements, index, elements, index + cSize, size - index);
+        int i = index;
+        for (T element : c) {
+            elements[i++] = element;
+        }
+        size += cSize;
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод removeAll будет реализован позже");
+        Objects.requireNonNull(c, "Коллекция не может быть null");
+        boolean modified = false;
+        for (int i = size - 1; i >= 0; i--) {
+            if (c.contains(elements[i])) {
+                remove(i);
+                modified = true;
+            }
+        }
+        return modified;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод retainAll будет реализован позже");
+        Objects.requireNonNull(c, "Коллекция не может быть null");
+        boolean modified = false;
+        for (int i = size - 1; i >= 0; i--) {
+            if (!c.contains(elements[i])) {
+                remove(i);
+                modified = true;
+            }
+        }
+        return modified;
     }
 
     @Override
@@ -244,19 +280,176 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод listIterator будет реализован позже");
+        return new MyListIterator(0);
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод listIterator(int) будет реализован позже");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index);
+        }
+        return new MyListIterator(index);
     }
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO: будет реализовано позже
-        throw new UnsupportedOperationException("Метод subList будет реализован позже");
+        if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException(
+                    "fromIndex: " + fromIndex + ", toIndex: " + toIndex + ", size: " + size);
+        }
+        return new SubList(this, fromIndex, toIndex);
+    }
+
+    private class MyIterator implements Iterator<T> {
+        private int cursor = 0;
+
+        @Override
+        public boolean hasNext() {
+            return cursor < size;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return (T) elements[cursor++];
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("remove() не поддерживается в этом итераторе");
+        }
+    }
+
+    private class MyListIterator implements ListIterator<T> {
+        private int cursor;
+        private int lastRet = -1;
+
+        MyListIterator(int index) {
+            cursor = index;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return cursor < size;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            lastRet = cursor;
+            return (T) elements[cursor++];
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return cursor > 0;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public T previous() {
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            lastRet = --cursor;
+            return (T) elements[cursor];
+        }
+
+        @Override
+        public int nextIndex() {
+            return cursor;
+        }
+
+        @Override
+        public int previousIndex() {
+            return cursor - 1;
+        }
+
+        @Override
+        public void remove() {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
+            }
+            MyArrayList.this.remove(lastRet);
+            if (lastRet < cursor) {
+                cursor--;
+            }
+            lastRet = -1;
+        }
+
+        @Override
+        public void set(T t) {
+            if (lastRet < 0) {
+                throw new IllegalStateException();
+            }
+            MyArrayList.this.set(lastRet, t);
+        }
+
+        @Override
+        public void add(T t) {
+            MyArrayList.this.add(cursor, t);
+            cursor++;
+            lastRet = -1;
+        }
+    }
+
+    private class SubList extends AbstractList<T> {
+        private final MyArrayList<T> outer;
+        private final int offset;
+        private int subSize;
+
+        SubList(MyArrayList<T> outer, int fromIndex, int toIndex) {
+            this.outer = outer;
+            this.offset = fromIndex;
+            this.subSize = toIndex - fromIndex;
+        }
+
+        private void checkIndex(int index) {
+            if (index < 0 || index >= subSize) {
+                throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + subSize);
+            }
+        }
+
+        @Override
+        public T get(int index) {
+            checkIndex(index);
+            return outer.get(offset + index);
+        }
+
+        @Override
+        public T set(int index, T element) {
+            checkIndex(index);
+            return outer.set(offset + index, element);
+        }
+
+        @Override
+        public void add(int index, T element) {
+            if (index < 0 || index > subSize) {
+                throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + subSize);
+            }
+            outer.add(offset + index, element);
+            subSize++;
+            modCount++; // Для поддержки итераторов AbstractList
+        }
+
+        @Override
+        public T remove(int index) {
+            checkIndex(index);
+            T removed = outer.remove(offset + index);
+            subSize--;
+            modCount++;
+            return removed;
+        }
+
+        @Override
+        public int size() {
+            return subSize;
+        }
     }
 }
