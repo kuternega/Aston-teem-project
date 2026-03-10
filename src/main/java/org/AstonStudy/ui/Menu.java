@@ -90,7 +90,9 @@ public class Menu {
                 } //Вызвать алгоритм четно-нечетной сортировки
                 case 6 -> FileHelper.appendToFile("Collection.txt", collection);
                 case 7 -> {
-                    System.out.println(MultiThreadCounter.countOccurrences(collection, ));
+                    //тут реализацию Scanner Scanner (Чекни DataProvider\DataProviderTest)
+                    //+ число которое отвечает за количество авто пользователя
+                    System.out.println(MultiThreadCounter.countOccurrences(myList, DataProvider.manual(), 9);
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
                 case 8 -> showLangSelectionMenu();
                 case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
