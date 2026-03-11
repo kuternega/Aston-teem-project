@@ -126,7 +126,7 @@ public class Menu {
             choiceFillMenu = scannerNextInt();
             switch (choiceFillMenu) {
                 case 1 -> {
-                    System.out.println("Введите путь к файлу:");
+                    System.out.println(language == Language.ENGLISH ? "Enter file path:" : "Введите путь к файлу:");
                     in.nextLine();
                     String filePath = in.nextLine();
                     collection = DataProvider.fromFile(filePath);
@@ -137,20 +137,20 @@ public class Menu {
                     choiceFillMenu = 5;
                 }
                 case 3 -> {
-                    System.out.println("Введите количество элементов:");
+                    System.out.println(language == Language.ENGLISH ? "Enter the number of elements:" : "Введите количество элементов:");
                     int count = scannerNextInt();
                     collection = DataProvider.random(count);
                     choiceFillMenu = 5;
                 } //Вызвать метод, который заполнит коллекцию случайными элементами
                 case 4 -> {
-                    System.out.println("Введите количество элементов:");
+                    System.out.println(language == Language.ENGLISH ? "Enter the number of elements:" : "Введите количество элементов:");
                     int count = scannerNextInt();
                     in.nextLine();
-                    System.out.println("Введите значения вручную:");
+                    System.out.println(language == Language.ENGLISH ? "Enter values manually" : "Введите значения вручную:");
                     collection = DataProvider.manual(in, count);
                     choiceFillMenu = 5;
                 } //Вызвать метод, который заполнит коллекцию элементами, введенными пользователем
-                case 5 -> System.out.println("Returning to menu.");
+                case 5 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню:");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
         } while (choiceFillMenu != 5);
@@ -264,7 +264,7 @@ public class Menu {
                 int ans = in.nextInt();
                 return ans;
             } catch (InputMismatchException e) {
-                System.out.println("Неверный выбор. Введите целое число.");
+                System.out.println(language == Language.ENGLISH ? "Wrong choice. Please enter an integer." : "Неверный выбор. Введите целое число.");
                 in.next();
             }            
         }
