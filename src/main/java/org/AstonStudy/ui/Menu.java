@@ -92,7 +92,9 @@ public class Menu {
                 } //Вызвать алгоритм четно-нечетной сортировки
                 case 6 -> FileHelper.appendToFile("Collection.txt", collection);
                 case 7 -> {
-                    System.out.println(MultiThreadCounter.countOccurrences(collection, ));
+                    Scanner inCar = new Scanner(System.in);
+                    System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(inCar, 1).getFirst(), 8));
+                    inCar.close();
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
                 case 8 -> showLangSelectionMenu();
                 case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
