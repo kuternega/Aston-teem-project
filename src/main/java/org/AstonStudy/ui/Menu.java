@@ -1,59 +1,115 @@
 package org.AstonStudy.ui;
 
+import org.AstonStudy.collection.MyArrayList;
+import org.AstonStudy.data.DataProvider;
+import org.AstonStudy.model.Car;
+import org.AstonStudy.sorting.BubbleSortStrategy;
+import org.AstonStudy.sorting.InsertionSortStrategy;
+import org.AstonStudy.sorting.OddEvenSorter;
+import org.AstonStudy.sorting.SortingStrategy;
+import org.AstonStudy.util.FileHelper;
+import org.AstonStudy.util.MultiThreadCounter;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     public static Language language = Language.ENGLISH;
     public static FieldOfSort fieldOfSort = FieldOfSort.POWER;
     public static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
+    public static Collection collection = null;
 
     public static void showMenu() {
         int choice = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.print("\\033[H\\033[2J");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             String menuEng = """
                 1.Fill collection
                 2.Choose field of sort
                 3.Choose sorting algorithm
                 4.Sort
-                5.Write collection to file
-                6.Count the number of occurrences of an element
-                7.Select language
-                8.Quit
+                5.Odd-even sort
+                6.Write collection to file
+                7.Count the number of occurrences of an element
+                8.Select language
+                9.Quit
                 """;
             String menuRus = """
                 1.Заполнить коллекцию
                 2.Выбрать поле для сортировки
                 3.Выбрать алгоритм сортировки
                 4.Отсортировать
-                5.Записать коллекцию в файл
-                6.Посчитать количество вхождений элемента
-                7.Выбор языка
-                8.Выход
+                5.Четно-неетная сортировка
+                6.Записать коллекцию в файл
+                7.Посчитать количество вхождений элемента
+                8.Выбор языка
+                9.Выход
                 """;
             System.out.println(language == Language.ENGLISH ? menuEng : menuRus);
             choice = in.nextInt();
-            in.close();
             switch (choice) {
                 case 1 -> showFillByMenu();
                 case 2 -> showFieldOfSortMenu();
                 case 3 -> showSortAlgoMenu();
-                case 4 -> System.out.println("N/a"); //Вызвать выбранный алгоритм сортировки по выбранному полю
-                case 5 -> System.out.println("N/a"); //Вызвать метод, который запишет коллекцию в файл
-                case 6 -> System.out.println("N/a"); //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
-                case 7 -> showLangSelectionMenu();
-                case 8 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
+                case 4 -> {
+                    if (collection == null) {
+                        System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
+                        break;
+                    }
+                    SortingStrategy<Car> sortingStrategy;
+                    if (sortAlgo == SortAlgo.BUBBLE_SORT) {
+                        sortingStrategy = new BubbleSortStrategy<>();
+                    } else {
+                        sortingStrategy = new InsertionSortStrategy<>();
+                    }
+                    if (fieldOfSort == FieldOfSort.MODEL) {
+                        sortingStrategy.sort((List<Car>) collection, Car.byModel());
+                    } else if (fieldOfSort == FieldOfSort.POWER) {
+                        sortingStrategy.sort((List<Car>) collection, Car.byPower());
+                    }
+                    else {
+                        sortingStrategy.sort((List<Car>) collection, Car.byYear());
+                    }
+                } //Вызвать выбранный алгоритм сортировки по выбранному полю
+                case 5 -> {
+                    SortingStrategy<Car> sortingStrategy;
+                    if (sortAlgo == SortAlgo.BUBBLE_SORT) {
+                        sortingStrategy = new BubbleSortStrategy<>();
+                    } else {
+                        sortingStrategy = new InsertionSortStrategy<>();
+                    }
+                    if (fieldOfSort == FieldOfSort.MODEL) {
+                        System.out.println(language == Language.ENGLISH ? "Model can't be even/odd" : "Модель не может быть четной/нечетной");
+                    } else if (fieldOfSort == FieldOfSort.POWER) {
+                        OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getPower, sortingStrategy, Car.byPower());
+                    }
+                    else {
+                        OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
+                    }
+                } //Вызвать алгоритм четно-нечетной сортировки
+                case 6 -> FileHelper.appendToFile("Collection.txt", collection);
+                case 7 -> {
+                    Scanner inCar = new Scanner(System.in);
+                    System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(inCar, 1).getFirst(), 8));
+                    inCar.close();
+                } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
+                case 8 -> showLangSelectionMenu();
+                case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-        } while (choice != 8);
+            in.close();
+        } while (choice != 9);
     }
 
     public static void showFillByMenu() {
         int choiceFillMenu = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.print("\\033[H\\033[2J");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             String fillMenuEng = """
                 1.File
                 2.Random
@@ -68,23 +124,38 @@ public class Menu {
                 """;
             System.out.println(language == Language.ENGLISH ? fillMenuEng : fillMenuRus);
             choiceFillMenu = in.nextInt();
-            in.close();
             switch (choiceFillMenu) {
                 case 1 -> {
-                    System.out.println("N/a");
+                    System.out.println("Введите путь к файлу:");
+                    Scanner inFilePath = new Scanner(System.in);
+                    String filePath = inFilePath.nextLine();
+                    collection = DataProvider.fromFile(filePath);
+                    inFilePath.close();
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию из файла
                 case 2 -> {
-                    System.out.println("N/a");
+                    System.out.println("Введите количество элементов:");
+                    Scanner inCount = new Scanner(System.in);
+                    int count = inCount.nextInt();
+                    collection = DataProvider.random(count);
+                    inCount.close();
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию случайными элементами
                 case 3 -> {
-                    System.out.println("N/a");
+                    System.out.println("Введите количество элементов:");
+                    Scanner inCount = new Scanner(System.in);
+                    int count = inCount.nextInt();
+                    System.out.println("Введите значения вручную:");
+                    Scanner inManual = new Scanner(System.in);
+                    collection = DataProvider.manual(inManual, count);
+                    inManual.close();
+                    inCount.close();
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию элементами, введенными пользователем
                 case 4 -> System.out.println("Returning to menu.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
+            in.close();
         } while (choiceFillMenu != 4);
     }
 
@@ -92,7 +163,8 @@ public class Menu {
         int choiceFieldOfSort = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.print("\\033[H\\033[2J");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             String fieldMenuEng = """
                 1.Power
                 2.Model
@@ -107,7 +179,6 @@ public class Menu {
                 """;
             System.out.println(language == Language.ENGLISH ? fieldMenuEng : fieldMenuRus);
             choiceFieldOfSort = in.nextInt();
-            in.close();
             switch (choiceFieldOfSort) {
                 case 1 -> {
                     fieldOfSort = FieldOfSort.POWER;
@@ -121,9 +192,10 @@ public class Menu {
                     fieldOfSort = FieldOfSort.YEAR;
                     choiceFieldOfSort = 4;
                 }
-                case 4 -> System.out.println("Returning to menu.");
+                case 4 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
+            in.close();
         } while (choiceFieldOfSort != 4);
     }
 
@@ -131,7 +203,8 @@ public class Menu {
         int choiceSortAlgo = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.print("\\033[H\\033[2J");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             String sortMenuEng = """
                 1.Bubble sort
                 2.Insert sort
@@ -144,19 +217,19 @@ public class Menu {
                 """;
             System.out.println(language == Language.ENGLISH ? sortMenuEng : sortMenuRus);
             choiceSortAlgo = in.nextInt();
-            in.close();
             switch (choiceSortAlgo) {
                 case 1 -> {
                     sortAlgo = SortAlgo.BUBBLE_SORT;
-                    choiceSortAlgo = 3;
+                    choiceSortAlgo = 4;
                 }
                 case 2 -> {
                     sortAlgo = SortAlgo.INSERT_SORT;
-                    choiceSortAlgo = 3;
+                    choiceSortAlgo = 4;
                 }
-                case 3 -> System.out.println("Returning to menu.");
+                case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
+            in.close();
         } while (choiceSortAlgo != 3);
     }
 
@@ -164,7 +237,8 @@ public class Menu {
         int choiceLang = 0;
         do {
             Scanner in = new Scanner(System.in);
-            System.out.print("\\033[H\\033[2J");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             String langMenuEng = """
                     1.English
                     2.Eussian
@@ -177,7 +251,6 @@ public class Menu {
                     """;
             System.out.println(language == Language.ENGLISH ? langMenuEng : langMenuRus);
             choiceLang = in.nextInt();
-            in.close();
             switch (choiceLang) {
                 case 1 -> {
                     language = Language.ENGLISH;
@@ -187,8 +260,10 @@ public class Menu {
                     language = Language.RUSSIAN;
                     choiceLang = 3;
                 }
+                case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
+            in.close();
         } while(choiceLang != 3);
     }
 
