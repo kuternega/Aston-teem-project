@@ -130,7 +130,7 @@ public class MenuTest {
     @Test
     @DisplayName("BubbleSort")
     void bubbleSort() {
-        
+
     }
 
     @Test

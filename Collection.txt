@@ -1,0 +1,100 @@
+280;Ferrari F40;1987
+450;Porsche 959;1986
+250;Lancia Delta HF Integrale;1987
+205;Volkswagen Golf GTI;1983
+280;Nissan Skyline GT-R R32;1989
+210;Mazda MX-5 Miata;1989
+480;Lamborghini Diablo;1990
+550;McLaren F1;1992
+240;Honda NSX;1990
+320;Toyota Supra MK4;1993
+276;Mazda RX-7 FD;1991
+355;Ferrari F355;1994
+300;Porsche 993 Turbo;1995
+240;BMW M3 E36;1992
+380;Chevrolet Corvette C5;1997
+627;Mercedes-Benz CLK GTR;1998
+480;Lamborghini Murcielago;2001
+618;Ferrari Enzo;2002
+507;Porsche Carrera GT;2003
+650;Mercedes-Benz SLR McLaren;2003
+500;Ford GT;2004
+986;Bugatti Veyron;2005
+602;Lamborghini Gallardo;2003
+500;Ferrari F430;2004
+420;Audi R8;2006
+650;Nissan GT-R R35;2007
+500;Chevrolet Camaro ZL1;2011
+580;BMW M5 F10;2011
+691;Dodge Challenger Hellcat;2015
+900;Ferrari LaFerrari;2013
+887;Porsche 918 Spyder;2013
+730;McLaren P1;2013
+1500;Koenigsegg Regera;2016
+1479;Bugatti Chiron;2016
+710;Lamborghini Aventador SV;2015
+769;Ferrari 812 Superfast;2017
+650;Porsche 911 GT2 RS;2017
+840;Dodge Demon;2018
+625;Aston Martin DBS Superleggera;2018
+650;McLaren 720S;2017
+1000;Rimac Nevera;2021
+780;Lamborghini Revuelto;2023
+1018;Ferrari SF90 Stradale;2019
+900;Aston Martin Valkyrie;2021
+1176;Koenigsegg Jesko;2020
+1600;Bugatti Bolide;2020
+430;Lexus LFA;2010
+550;Mercedes-AMG GT;2014
+660;Ferrari 488 Pista;2018
+640;Lamborghini Huracan Performante;2017
+205;Subaru Impreza WRX STI;1994
+280;Mitsubishi Lancer Evolution VI;1999
+300;Audi Quattro;1980
+500;Ferrari Testarossa;1984
+280;BMW M3 E30;1986
+160;Peugeot 205 GTI;1984
+210;Renault Clio Williams;1993
+240;Honda Civic Type R EK9;1997
+276;Toyota Celica GT-Four;1986
+220;Ford Sierra RS Cosworth;1986
+300;Lancia Stratos HF Turbo;1982
+340;Porsche 944 Turbo;1985
+185;Volkswagen Scirocco GTI;1981
+250;Fiat Coupé Turbo;1993
+230;Alfa Romeo 155 Q4;1992
+493;Jaguar XJ220;1992
+450;Bugatti EB110;1991
+380;Vector W8;1989
+200;DeLorean DMC-12;1981
+160;Lotus Esprit Turbo;1980
+650;Ferrari 288 GTO;1984
+500;Porsche 959 S;1988
+300;Nissan 300ZX Z32;1989
+220;Mazda 323 GTX;1988
+600;Bentley Continental GT;2003
+460;Maserati GranTurismo;2007
+571;Aston Martin Vanquish;2001
+750;Rolls-Royce Ghost;2009
+640;Mercedes-Maybach S650;2017
+420;Infiniti Q50 Eau Rouge;2014
+550;Lexus RC F;2014
+470;BMW M4;2014
+451;Audi RS6 Avant C7;2013
+404;Cadillac CTS-V;2004
+640;Dodge Viper ACR;2008
+638;Chevrolet Corvette ZR1;2009
+660;Ford Mustang Shelby GT500;2020
+755;Hennessey Venom GT;2011
+1242;SSC Ultimate Aero;2006
+1750;Koenigsegg Gemera;2020
+680;McLaren 600LT;2018
+720;Lamborghini Urus;2018
+700;Porsche Cayenne Turbo GT;2021
+625;Aston Martin DB11;2016
+800;Ferrari GTC4Lusso;2016
+394;Alpine A110;2017
+280;Toyota GR Yaris;2020
+450;Audi RS3;2021
+310;Honda Civic Type R FK8;2017
+1978;Devel Sixteen;2017
