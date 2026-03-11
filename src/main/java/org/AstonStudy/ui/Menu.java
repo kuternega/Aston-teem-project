@@ -19,11 +19,11 @@ public class Menu {
     public static FieldOfSort fieldOfSort = FieldOfSort.POWER;
     public static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
     public static Collection collection = null;
+    public static Scanner in = new Scanner(System.in);
 
     public static void showMenu() {
         int choice = 0;
         do {
-            Scanner in = new Scanner(System.in);
             System.out.print("\033[H\033[2J");
             System.out.flush();
             String menuEng = """
@@ -89,25 +89,22 @@ public class Menu {
                     else {
                         OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
                     }
-                } //Вызвать алгоритм четно-нечетной сортировки
+                }
                 case 6 -> FileHelper.appendToFile("Collection.txt", collection);
                 case 7 -> {
-                    Scanner inCar = new Scanner(System.in);
-                    System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(inCar, 1).getFirst(), 8));
-                    inCar.close();
+                    System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(in, 1).getFirst(), 8));
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
                 case 8 -> showLangSelectionMenu();
                 case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choice != 9);
+        in.close();
     }
 
     public static void showFillByMenu() {
         int choiceFillMenu = 0;
         do {
-            Scanner in = new Scanner(System.in);
             System.out.print("\033[H\033[2J");
             System.out.flush();
             String fillMenuEng = """
@@ -127,42 +124,32 @@ public class Menu {
             switch (choiceFillMenu) {
                 case 1 -> {
                     System.out.println("Введите путь к файлу:");
-                    Scanner inFilePath = new Scanner(System.in);
-                    String filePath = inFilePath.nextLine();
+                    String filePath = in.nextLine();
                     collection = DataProvider.fromFile(filePath);
-                    inFilePath.close();
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию из файла
                 case 2 -> {
                     System.out.println("Введите количество элементов:");
-                    Scanner inCount = new Scanner(System.in);
-                    int count = inCount.nextInt();
+                    int count = in.nextInt();
                     collection = DataProvider.random(count);
-                    inCount.close();
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию случайными элементами
                 case 3 -> {
                     System.out.println("Введите количество элементов:");
-                    Scanner inCount = new Scanner(System.in);
-                    int count = inCount.nextInt();
+                    int count = in.nextInt();
                     System.out.println("Введите значения вручную:");
-                    Scanner inManual = new Scanner(System.in);
-                    collection = DataProvider.manual(inManual, count);
-                    inManual.close();
-                    inCount.close();
+                    collection = DataProvider.manual(in, count);
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию элементами, введенными пользователем
                 case 4 -> System.out.println("Returning to menu.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choiceFillMenu != 4);
     }
 
     public static void showFieldOfSortMenu() {
         int choiceFieldOfSort = 0;
         do {
-            Scanner in = new Scanner(System.in);
             System.out.print("\033[H\033[2J");
             System.out.flush();
             String fieldMenuEng = """
@@ -195,14 +182,12 @@ public class Menu {
                 case 4 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choiceFieldOfSort != 4);
     }
 
     public static void showSortAlgoMenu() {
         int choiceSortAlgo = 0;
         do {
-            Scanner in = new Scanner(System.in);
             System.out.print("\033[H\033[2J");
             System.out.flush();
             String sortMenuEng = """
@@ -229,14 +214,12 @@ public class Menu {
                 case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choiceSortAlgo != 3);
     }
 
     public static void showLangSelectionMenu() {
         int choiceLang = 0;
         do {
-            Scanner in = new Scanner(System.in);
             System.out.print("\033[H\033[2J");
             System.out.flush();
             String langMenuEng = """
@@ -263,7 +246,6 @@ public class Menu {
                 case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while(choiceLang != 3);
     }
 
