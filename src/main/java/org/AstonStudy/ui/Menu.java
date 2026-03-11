@@ -91,7 +91,7 @@ public class Menu {
                         OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
                     }
                 }
-                case 6 -> FileHelper.appendToFile("Collection.txt", collection);
+                case 6 -> FileHelper.appendToFile("src\\main\\resources\\Collection.txt", collection);
                 case 7 -> {
                     System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(in, 1).getFirst(), 8));
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
