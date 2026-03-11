@@ -11,7 +11,6 @@ import org.AstonStudy.util.FileHelper;
 import org.AstonStudy.util.MultiThreadCounter;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +19,6 @@ public class Menu {
     public static FieldOfSort fieldOfSort = FieldOfSort.POWER;
     public static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
     public static Collection collection = null;
-    public static MyArrayList<Car> myList = new MyArrayList<>();
 
     public static void showMenu() {
         int choice = 0;
@@ -57,6 +55,10 @@ public class Menu {
                 case 2 -> showFieldOfSortMenu();
                 case 3 -> showSortAlgoMenu();
                 case 4 -> {
+                    if (collection == null) {
+                        System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
+                        break;
+                    }
                     SortingStrategy<Car> sortingStrategy;
                     if (sortAlgo == SortAlgo.BUBBLE_SORT) {
                         sortingStrategy = new BubbleSortStrategy<>();
@@ -80,19 +82,19 @@ public class Menu {
                         sortingStrategy = new InsertionSortStrategy<>();
                     }
                     if (fieldOfSort == FieldOfSort.MODEL) {
-                        OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byModel());
+                        System.out.println(language == Language.ENGLISH ? "Model can't be even/odd" : "Модель не может быть четной/нечетной");
                     } else if (fieldOfSort == FieldOfSort.POWER) {
-                        OddEvenSorter.sortByEven(myList, Car::getPower, sortingStrategy, Car.byPower());
+                        OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getPower, sortingStrategy, Car.byPower());
                     }
                     else {
-                        OddEvenSorter.sortByEven((MyArrayList<? extends Object>) collection, ,sortingStrategy, Car.byYear());
+                        OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
                     }
                 } //Вызвать алгоритм четно-нечетной сортировки
                 case 6 -> FileHelper.appendToFile("Collection.txt", collection);
                 case 7 -> {
-                    //тут реализацию Scanner Scanner (Чекни DataProvider\DataProviderTest)
-                    //+ число которое отвечает за количество авто пользователя
-                    System.out.println(MultiThreadCounter.countOccurrences(myList, DataProvider.manual(), 9);
+                    Scanner inCar = new Scanner(System.in);
+                    System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(inCar, 1).getFirst(), 8));
+                    inCar.close();
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
                 case 8 -> showLangSelectionMenu();
                 case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
