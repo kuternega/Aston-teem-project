@@ -33,7 +33,7 @@ public class FileHelperTest {
         list.add(car2);
         list.add(car3);
 
-        FileHelper.appendToFile("Output.txt", list);
+        FileHelper.appendToFile("src\\test\\resources\\Output.txt", list);
 
         String[] lineExpected = new String[] {"80;Волга;1980", "90;Лада;2015", "71;Москвич;1982"};
         String lineFromFile;
