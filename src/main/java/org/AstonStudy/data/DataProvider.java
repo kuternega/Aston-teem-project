@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 public class DataProvider {
     static Path PATH_DEFAULT_CARS = Paths.get("src\\main\\java\\org\\AstonStudy\\data", "DefaultCars");
+
     public static MyArrayList<Car> fromFile (String filename) {
         try (Stream<String> lines = Files.lines(Paths.get(filename))) {
             return lines
@@ -43,7 +44,6 @@ public class DataProvider {
     }
 
     public static MyArrayList<Car> fromFile() {
-
         try (Stream<String> lines = Files.lines(Paths.get(String.valueOf(PATH_DEFAULT_CARS)))) {
             return lines
                     .map(line ->{

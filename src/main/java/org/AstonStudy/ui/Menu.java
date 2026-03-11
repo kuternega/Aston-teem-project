@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    private static Language language = Language.ENGLISH;
-    private static FieldOfSort fieldOfSort = FieldOfSort.POWER;
-    private static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
-    private static Collection collection = null;
-    private static Scanner in = new Scanner(System.in);
+    protected static Language language = Language.ENGLISH;
+    protected static FieldOfSort fieldOfSort = FieldOfSort.POWER;
+    protected static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
+    protected static Collection collection = null;
+    protected static Scanner in = new Scanner(System.in);
 
     public static void showMenu() {
         int choice = 0;
@@ -127,6 +127,7 @@ public class Menu {
             switch (choiceFillMenu) {
                 case 1 -> {
                     System.out.println("Введите путь к файлу:");
+                    in.nextLine();
                     String filePath = in.nextLine();
                     collection = DataProvider.fromFile(filePath);
                     choiceFillMenu = 5;
@@ -144,6 +145,7 @@ public class Menu {
                 case 4 -> {
                     System.out.println("Введите количество элементов:");
                     int count = scannerNextInt();
+                    in.nextLine();
                     System.out.println("Введите значения вручную:");
                     collection = DataProvider.manual(in, count);
                     choiceFillMenu = 5;
@@ -212,11 +214,11 @@ public class Menu {
             switch (choiceSortAlgo) {
                 case 1 -> {
                     sortAlgo = SortAlgo.BUBBLE_SORT;
-                    choiceSortAlgo = 4;
+                    choiceSortAlgo = 3;
                 }
                 case 2 -> {
                     sortAlgo = SortAlgo.INSERT_SORT;
-                    choiceSortAlgo = 4;
+                    choiceSortAlgo = 3;
                 }
                 case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");

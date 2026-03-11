@@ -1,207 +1,242 @@
 package org.AstonStudy.ui;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MenuTest {
-    @Test
-    @DisplayName("sort")
-    void sort() {
 
+    private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private static final PrintStream originalOut = System.out;
+    private static final InputStream originalIn = System.in;
+
+    @BeforeEach
+    void setUp() {
+        Menu.language = Menu.Language.ENGLISH;
+        Menu.fieldOfSort = Menu.FieldOfSort.POWER;
+        Menu.sortAlgo = Menu.SortAlgo.BUBBLE_SORT;
+        Menu.collection = null;
+        Menu.in = new java.util.Scanner(System.in);
+        outContent.reset();
+        System.setOut(new PrintStream(outContent));
     }
 
-    @Test
-    @DisplayName("oddEvenSort")
-    void oddEvenSort() {
-
+    @AfterEach
+    void tearDown() {
+        System.setOut(originalOut);
+        System.setIn(originalIn);
     }
 
-    @Test
-    @DisplayName("writeCollectionToFile")
-    void writeCollectionToFile() {
-
-    }
-
-    @Test
-    @DisplayName("Count the number of occurrences of an element")
-    void countTheNumberOfOccurrencesOfAnElement() {
-
-    }
-
-    @Test
-    @DisplayName("Quit")
-    void Quit() {
-
-    }
-
-    /** Заполнение коллекций:
-     * 1)Вызов меню заполнения коллекций
-     * 2)Заполнение коллекций из файла
-     * 3)Заполнение коллекций рандом методом
-     * 4)Ручное заполнение
-     * 5)Выход в главное меню**/
-
-    @Test
-    @DisplayName("fillCollection")
-    void fillCollection() {
-
-    }
-
-    @Test
-    @DisplayName("Show fill by menu - File")
-    void file() {
-
-    }
-
-    @Test
-    @DisplayName("Show fill by menu - Random")
-    void random() {
-
-    }
-
-    @Test
-    @DisplayName("Show fill by menu - Manually")
-    void manual() {
-
-    }
-
-    @Test
-    @DisplayName("Back to the menu")
-    void backToTheMenu() {
-
-    }
-
-    /** Сортировка машин
-     *1)Вызов меню сортировки
-     *2)Сортировка по мощности
-     *3)Сортировка по модели
-     *4)Сортировка по году выпуска
-     *5)Выход в главное меню**/
-
-    @Test
-    @DisplayName("choseFieldSort")
-    void choseFieldSort() {
-
-    }
-
-    @Test
-    @DisplayName("Sort by power")
-    void power() {
-
-    }
-
-    @Test
-    @DisplayName("Sort by model")
-    void model() {
-
-    }
-
-    @Test
-    @DisplayName("Sort by year")
-    void year() {
-
-    }
-
-    @Test
-    @DisplayName("Back to the Menu from SortAlgorithm")
-    void backToTheMenu2() {
-
-    }
-
-    /** Выбор метода сортировки
-     * 1)Выбор меню с алгоритмами сортировки
-     * 2)Сортировка Пузырьком
-     * 3)Сортировка Вставками
-     * 4)Выход в главное меню
-     * **/
-
-    @Test
-    @DisplayName("choseSortAlgorithm")
-    void choseSortAlgorithm() {
-
-    }
-
-    @Test
-    @DisplayName("BubbleSort")
-    void bubbleSort() {
-
-    }
-
-    @Test
-    @DisplayName("InsertSort")
-    void insertSort() {
-        String input = "2\n3\n";
+    private void setInput(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        Menu.in = new java.util.Scanner(System.in);
+    }
+
+                                            /**
+                                             * Тест на выбор языка
+                                             * 1)Выбор Английского языка
+                                             * 2)Выбор Русского языка
+                                             * 3)Возврат в главное меню без изменений
+                                             * **/
+
+    @Test
+    @DisplayName("Выбор английского языка в меню языка")
+    void testEnglishLanguage() {
+        setInput("1\n3\n");
+        Menu.showLangSelectionMenu();
+        assertEquals(Menu.Language.ENGLISH, Menu.language);
+        // Убираем проверку на сообщение, так как оно не выводится при таком сценарии
+    }
+
+    @Test
+    @DisplayName("Выбор русского языка в меню языка")
+    void testRussianLanguage() {
+        setInput("2\n3\n"); // 2 - Russian, 3 - back
+        Menu.showLangSelectionMenu();
+        assertEquals(Menu.Language.RUSSIAN, Menu.language);
+    }
+
+    @Test
+    @DisplayName("Возврат из меню языка без изменения")
+    void testLanguageBack() {
+        setInput("3\n");
+        Menu.showLangSelectionMenu();
+        assertEquals(Menu.Language.ENGLISH, Menu.language);
+        assertTrue(outContent.toString().contains("Returning to menu.")); // это должно работать
+    }
+
+                                        /**
+                                         * Тесты на выбор поля сортировки
+                                         * 1)Выбор поля мощности
+                                         * 2)Выбор поля модели
+                                         * 3)Выбор поля года
+                                         * 4)Возврат в главное меню без изменений
+                                         * **/
+
+    @Test
+    @DisplayName("Выбор поля POWER")
+    void testFieldPower() {
+        setInput("1\n4\n"); // 1 - Power, 4 - back
+        Menu.showFieldOfSortMenu();
+        assertEquals(Menu.FieldOfSort.POWER, Menu.fieldOfSort);
+    }
+
+    @Test
+    @DisplayName("Выбор поля MODEL")
+    void testFieldModel() {
+        setInput("2\n4\n");
+        Menu.showFieldOfSortMenu();
+        assertEquals(Menu.FieldOfSort.MODEL, Menu.fieldOfSort);
+    }
+
+    @Test
+    @DisplayName("Выбор поля YEAR")
+    void testFieldYear() {
+        setInput("3\n4\n");
+        Menu.showFieldOfSortMenu();
+        assertEquals(Menu.FieldOfSort.YEAR, Menu.fieldOfSort);
+    }
+
+    @Test
+    @DisplayName("Возврат без изменения поля")
+    void testFieldBack() {
+        setInput("4\n");
+        Menu.showFieldOfSortMenu();
+        assertEquals(Menu.FieldOfSort.POWER, Menu.fieldOfSort); // по умолчанию
+    }
+
+                                        /**
+                                         * Тест выбора алгоритма сортировки:
+                                         * 1)Выбор пузырьковой сортировки
+                                         * 2)Выбор сортировки вставками
+                                         * 3)Возврат в главное меню без изменений
+                                         * **/
+
+    @Test
+    @DisplayName("Выбор пузырьковой сортировки")
+    void testBubbleSort() {
+        setInput("1\n3\n"); // 1 - Bubble, 3 - back
+        Menu.showSortAlgoMenu();
+        assertEquals(Menu.SortAlgo.BUBBLE_SORT, Menu.sortAlgo);
+    }
+
+    @Test
+    @DisplayName("Выбор сортировки вставками")
+    void testInsertSort() {
+        setInput("2\n3\n");
         Menu.showSortAlgoMenu();
         assertEquals(Menu.SortAlgo.INSERT_SORT, Menu.sortAlgo);
     }
 
     @Test
-    @DisplayName("Back to the menu")
-    void backToTheMenu3() {
-        String input = "3";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+    @DisplayName("Возврат без изменения алгоритма")
+    void testSortAlgoBack() {
+        setInput("3\n");
         Menu.showSortAlgoMenu();
         assertEquals(Menu.SortAlgo.BUBBLE_SORT, Menu.sortAlgo);
     }
 
-    /** Выбор языка
-     * 1)Вход в меню выбора языка
-     * 2)Выбор Английского
-     * 3)Выбор Русского
-     * 4)Назад в меню
-     * **/
+                                    /**
+                                     * Тесты на заполнение коллекции
+                                     * 1)Из файла с ручным вводом пути
+                                     * 2)Из Стандартного файла
+                                     * 3)Заполнение случайными машинами
+                                     * 4)Ручное заполнение
+                                     * 5)Возврат в меню без изменений
+                                     * **/
+    @Test
+    @DisplayName("Заполнение из файла (ручной ввод пути)")
+    void testFillFromFile() {
+        setInput("1\nsrc\\test\\resources\\MenuTestFile\n5\n");
+        Menu.showFillByMenu();
+        assertNotNull(Menu.collection);
+        assertFalse(Menu.collection.isEmpty());
+    }
 
     @Test
-    @DisplayName("choseLanguage")
-    void choseLanguage() {
-        String input = "8\n2\n3\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+    @DisplayName("Заполнение из стандартного файла (default)")
+    void testFillFromDefaultFile() {
+        setInput("2\n5\n");
+        Menu.showFillByMenu();
+        assertNotNull(Menu.collection);
+    }
+
+    @Test
+    @DisplayName("Заполнение случайными элементами")
+    void testFillRandom() {
+        setInput("3\n5\n5\n");
+        Menu.showFillByMenu();
+        assertNotNull(Menu.collection);
+        assertEquals(5, Menu.collection.size());
+    }
+
+    @Test
+    @DisplayName("Ручное заполнение")
+    void testFillManual() {
+        setInput("4\n2\n150;Toyota;2020\n200;Honda;2019\n5\n");
+        Menu.showFillByMenu();
+        assertNotNull(Menu.collection);
+        assertEquals(2, Menu.collection.size());
+    }
+
+    @Test
+    @DisplayName("Возврат без заполнения")
+    void testFillBack() {
+        setInput("5\n");
+        Menu.showFillByMenu();
+        assertNull(Menu.collection);
+    }
+
+                                /**
+                                 * * Тест всея тестов:
+                                 * 1)Происходит выбор Русского Языка
+                                 * 2)Заполнение Коллекции вручную (2 машины: 150;Toyota;2020 и 200;Honda;2019)
+                                 * 3)Выбор сортировки по мощности
+                                 * 4)Выбирается сортировка пузырьком
+                                 * 5)Выполняем сортировку
+                                 * 6)Выход из программы
+                                 * (В теории ещё можно между 5) и 6) выполнить заполнение
+                                 * и затем убедится что происходит заполнение)
+                                 * **/
+
+    @Test
+    @DisplayName("Полный цикл: выбор языка, заполнение, сортировка")
+    void testFullCycle() {
+        String input = "8\n2\n1\n4\n2\n150;Toyota;2020\n200;Honda;2019\n2\n1\n3\n1\n4\n9\n";
+        setInput(input);
         Menu.showMenu();
         assertEquals(Menu.Language.RUSSIAN, Menu.language);
+        assertEquals(Menu.FieldOfSort.POWER, Menu.fieldOfSort);
+        assertEquals(Menu.SortAlgo.BUBBLE_SORT, Menu.sortAlgo);
+        assertNotNull(Menu.collection);
+        assertEquals(2, Menu.collection.size());
+        assertTrue(outContent.toString().contains("Приложение было закрыто"));
+    }
+
+                                /**
+                                 * Тестирование корректного ввода:
+                                 * 1)Ввод вместо числа букв
+                                 * 2)Ввод несуществующего пункта в меню
+                                 * **/
+
+    @Test
+    @DisplayName("Ввод нечислового значения в главном меню")
+    void testInvalidInputMainMenu() {
+        setInput("abc\n9\n");
+        Menu.showMenu();
+        assertTrue(outContent.toString().contains("Неверный выбор. Введите целое число."));
     }
 
     @Test
-    @DisplayName("Chose English")
-    void english() {
-        String input = "1\n3\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Menu.showLangSelectionMenu();
-        assertEquals(Menu.Language.ENGLISH, Menu.language);
-    }
-
-    @Test
-    @DisplayName("Chose Russian")
-    void russian() {
-        String input = "2\n3\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Menu.showLangSelectionMenu();
-        assertEquals(Menu.Language.RUSSIAN, Menu.language);
-    }
-
-    @Test
-    @DisplayName("Back to the menu")
-    void backToTheMenu4() {
-        String input = "3";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Menu.showLangSelectionMenu();
-        assertEquals(Menu.Language.ENGLISH, Menu.language);
+    @DisplayName("Неверный пункт меню")
+    void testWrongChoice() {
+        setInput("99\n9\n");
+        Menu.showMenu();
+        assertTrue(outContent.toString().contains("Wrong choice") || outContent.toString().contains("Неверный выбор"));
     }
 }
