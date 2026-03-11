@@ -11,15 +11,16 @@ import org.AstonStudy.util.FileHelper;
 import org.AstonStudy.util.MultiThreadCounter;
 
 import java.util.Collection;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public static Language language = Language.ENGLISH;
-    public static FieldOfSort fieldOfSort = FieldOfSort.POWER;
-    public static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
-    public static Collection collection = null;
-    public static Scanner in = new Scanner(System.in);
+    private static Language language = Language.ENGLISH;
+    private static FieldOfSort fieldOfSort = FieldOfSort.POWER;
+    private static SortAlgo sortAlgo = SortAlgo.BUBBLE_SORT;
+    private static Collection collection = null;
+    private static Scanner in = new Scanner(System.in);
 
     public static void showMenu() {
         int choice = 0;
@@ -49,7 +50,7 @@ public class Menu {
                 9.Выход
                 """;
             System.out.println(language == Language.ENGLISH ? menuEng : menuRus);
-            choice = in.nextInt();
+            choice = scannerNextInt();
             switch (choice) {
                 case 1 -> showFillByMenu();
                 case 2 -> showFieldOfSortMenu();
@@ -120,7 +121,7 @@ public class Menu {
                 4.Назад в меню
                 """;
             System.out.println(language == Language.ENGLISH ? fillMenuEng : fillMenuRus);
-            choiceFillMenu = in.nextInt();
+            choiceFillMenu = scannerNextInt();
             switch (choiceFillMenu) {
                 case 1 -> {
                     System.out.println("Введите путь к файлу:");
@@ -130,13 +131,13 @@ public class Menu {
                 } //Вызвать метод, который заполнит коллекцию из файла
                 case 2 -> {
                     System.out.println("Введите количество элементов:");
-                    int count = in.nextInt();
+                    int count = scannerNextInt();
                     collection = DataProvider.random(count);
                     choiceFillMenu = 4;
                 } //Вызвать метод, который заполнит коллекцию случайными элементами
                 case 3 -> {
                     System.out.println("Введите количество элементов:");
-                    int count = in.nextInt();
+                    int count = scannerNextInt();
                     System.out.println("Введите значения вручную:");
                     collection = DataProvider.manual(in, count);
                     choiceFillMenu = 4;
@@ -165,7 +166,7 @@ public class Menu {
                 4.Назад в меню
                 """;
             System.out.println(language == Language.ENGLISH ? fieldMenuEng : fieldMenuRus);
-            choiceFieldOfSort = in.nextInt();
+            choiceFieldOfSort = scannerNextInt();
             switch (choiceFieldOfSort) {
                 case 1 -> {
                     fieldOfSort = FieldOfSort.POWER;
@@ -201,7 +202,7 @@ public class Menu {
                 3.Назад в меню
                 """;
             System.out.println(language == Language.ENGLISH ? sortMenuEng : sortMenuRus);
-            choiceSortAlgo = in.nextInt();
+            choiceSortAlgo = scannerNextInt();
             switch (choiceSortAlgo) {
                 case 1 -> {
                     sortAlgo = SortAlgo.BUBBLE_SORT;
@@ -233,7 +234,7 @@ public class Menu {
                     3.Назад в меню.
                     """;
             System.out.println(language == Language.ENGLISH ? langMenuEng : langMenuRus);
-            choiceLang = in.nextInt();
+            choiceLang = scannerNextInt();
             switch (choiceLang) {
                 case 1 -> {
                     language = Language.ENGLISH;
@@ -247,6 +248,18 @@ public class Menu {
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
         } while(choiceLang != 3);
+    }
+
+    public static int scannerNextInt() {
+        while (true) {
+            try {
+                int ans = in.nextInt();
+                return ans;
+            } catch (InputMismatchException e) {
+                System.out.println("Неверный выбор. Введите целое число.");
+                in.next();
+            }            
+        }
     }
 
     enum Language {
