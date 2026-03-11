@@ -100,7 +100,6 @@ public class Menu {
                 case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choice != 9);
     }
 
@@ -155,7 +154,6 @@ public class Menu {
                 case 4 -> System.out.println("Returning to menu.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choiceFillMenu != 4);
     }
 
@@ -195,7 +193,6 @@ public class Menu {
                 case 4 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choiceFieldOfSort != 4);
     }
 
@@ -229,7 +226,6 @@ public class Menu {
                 case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while (choiceSortAlgo != 3);
     }
 
@@ -263,7 +259,6 @@ public class Menu {
                 case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
                 default -> System.out.println(language == Language.ENGLISH ? "Wrong choice" : "Неверный выбор");
             }
-            in.close();
         } while(choiceLang != 3);
     }
 

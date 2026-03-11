@@ -3,6 +3,12 @@ package org.AstonStudy.ui;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class MenuTest {
     @Test
     @DisplayName("sort")
@@ -124,19 +130,28 @@ public class MenuTest {
     @Test
     @DisplayName("BubbleSort")
     void bubbleSort() {
-
+        
     }
 
     @Test
     @DisplayName("InsertSort")
     void insertSort() {
-
+        String input = "2\n3\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        Menu.showSortAlgoMenu();
+        assertEquals(Menu.SortAlgo.INSERT_SORT, Menu.sortAlgo);
     }
 
     @Test
     @DisplayName("Back to the menu")
     void backToTheMenu3() {
-
+        String input = "3";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Menu.showSortAlgoMenu();
+        assertEquals(Menu.SortAlgo.BUBBLE_SORT, Menu.sortAlgo);
     }
 
     /** Выбор языка
@@ -149,24 +164,44 @@ public class MenuTest {
     @Test
     @DisplayName("choseLanguage")
     void choseLanguage() {
-
+        String input = "8\n2\n3\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Menu.showMenu();
+        assertEquals(Menu.Language.RUSSIAN, Menu.language);
     }
 
     @Test
     @DisplayName("Chose English")
     void english() {
-
+        String input = "1\n3\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Menu.showLangSelectionMenu();
+        assertEquals(Menu.Language.ENGLISH, Menu.language);
     }
 
     @Test
     @DisplayName("Chose Russian")
     void russian() {
-
+        String input = "2\n3\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Menu.showLangSelectionMenu();
+        assertEquals(Menu.Language.RUSSIAN, Menu.language);
     }
 
     @Test
     @DisplayName("Back to the menu")
     void backToTheMenu4() {
-
+        String input = "3";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Menu.showLangSelectionMenu();
+        assertEquals(Menu.Language.ENGLISH, Menu.language);
     }
 }
