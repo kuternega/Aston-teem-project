@@ -229,7 +229,7 @@ public class MenuTest {
     void testInvalidInputMainMenu() {
         setInput("abc\n9\n");
         Menu.showMenu();
-        assertTrue(outContent.toString().contains("Неверный выбор. Введите целое число."));
+        assertTrue(outContent.toString().contains("Wrong choice. Please enter an integer."));
     }
 
     @Test
