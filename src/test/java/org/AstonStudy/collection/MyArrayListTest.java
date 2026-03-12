@@ -206,7 +206,7 @@ class MyArrayListTest {
     class SearchMethodsTests {
 
         private MyArrayList<Car> carList;
-        private Car carA, carB, carC, nonExistent;
+        private Car carA, carB, carC;
 
         @BeforeEach
         void setUp() {

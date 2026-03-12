@@ -76,6 +76,10 @@ public class Menu {
                     }
                 } //Вызвать выбранный алгоритм сортировки по выбранному полю
                 case 5 -> {
+                    if (collection == null) {
+                        System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
+                        break;
+                    }
                     SortingStrategy<Car> sortingStrategy;
                     if (sortAlgo == SortAlgo.BUBBLE_SORT) {
                         sortingStrategy = new BubbleSortStrategy<>();
@@ -91,8 +95,18 @@ public class Menu {
                         OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
                     }
                 }
-                case 6 -> FileHelper.appendToFile("src\\main\\resources\\Collection.txt", collection);
+                case 6 -> {
+                    if (collection == null) {
+                        System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
+                        break;
+                    }
+                    FileHelper.appendToFile("src\\main\\resources\\Collection.txt", collection);
+                }
                 case 7 -> {
+                    if (collection == null) {
+                        System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
+                        break;
+                    }
                     System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(in, 1).getFirst(), 8));
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
                 case 8 -> showLangSelectionMenu();
