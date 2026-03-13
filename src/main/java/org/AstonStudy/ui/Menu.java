@@ -22,6 +22,10 @@ public class Menu {
     protected static Collection collection = null;
     protected static Scanner in = new Scanner(System.in);
 
+    public static Language getLanguage() {
+        return language;
+    }
+
     public static void showMenu() {
         int choice = 0;
         do {
