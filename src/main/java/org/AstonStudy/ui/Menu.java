@@ -22,6 +22,10 @@ public class Menu {
     protected static Collection collection = null;
     protected static Scanner in = new Scanner(System.in);
 
+    public static Language getLanguage() {
+        return language;
+    }
+
     public static void showMenu() {
         int choice = 0;
         do {
@@ -197,14 +201,17 @@ public class Menu {
             switch (choiceFieldOfSort) {
                 case 1 -> {
                     fieldOfSort = FieldOfSort.POWER;
+                    System.out.println(language == Language.ENGLISH ? "Power field was selected" : "Выбрано поле Мощность");
                     choiceFieldOfSort = 4;
                 }
                 case 2 -> {
                     fieldOfSort = FieldOfSort.MODEL;
+                    System.out.println(language == Language.ENGLISH ? "Model field was selected" : "Выбрано поле Модель");
                     choiceFieldOfSort = 4;
                 }
                 case 3 -> {
                     fieldOfSort = FieldOfSort.YEAR;
+                    System.out.println(language == Language.ENGLISH ? "Year field was selected" : "Выбрано поле Год");
                     choiceFieldOfSort = 4;
                 }
                 case 4 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
@@ -233,10 +240,12 @@ public class Menu {
             switch (choiceSortAlgo) {
                 case 1 -> {
                     sortAlgo = SortAlgo.BUBBLE_SORT;
+                    System.out.println(language == Language.ENGLISH ? "Bubble sort algorithm was selected" : "Выбран алгоритм пузырьковой сортировки");
                     choiceSortAlgo = 3;
                 }
                 case 2 -> {
                     sortAlgo = SortAlgo.INSERT_SORT;
+                    System.out.println(language == Language.ENGLISH ? "Insertion sort algorithm was selected" : "Выбран алгоритм сортировки вставкой");
                     choiceSortAlgo = 3;
                 }
                 case 3 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню.");
