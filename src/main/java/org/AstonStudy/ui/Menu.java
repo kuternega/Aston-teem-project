@@ -74,6 +74,7 @@ public class Menu {
                     else {
                         sortingStrategy.sort((List<Car>) collection, Car.byYear());
                     }
+                    System.out.println(language == Language.ENGLISH ? "Collection sorted" : "Коллекция отсортирована");
                 } //Вызвать выбранный алгоритм сортировки по выбранному полю
                 case 5 -> {
                     if (collection == null) {
@@ -90,9 +91,11 @@ public class Menu {
                         System.out.println(language == Language.ENGLISH ? "Model can't be even/odd" : "Модель не может быть четной/нечетной");
                     } else if (fieldOfSort == FieldOfSort.POWER) {
                         OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getPower, sortingStrategy, Car.byPower());
+                        System.out.println(language == Language.ENGLISH ? "Collection sorted" : "Коллекция отсортирована");
                     }
                     else {
                         OddEvenSorter.sortByEven((MyArrayList<Car>) collection, Car::getYear, sortingStrategy, Car.byYear());
+                        System.out.println(language == Language.ENGLISH ? "Collection sorted" : "Коллекция отсортирована");
                     }
                 }
                 case 6 -> {
@@ -107,7 +110,9 @@ public class Menu {
                         System.out.println(language == Language.ENGLISH ? "Collection is empty" : "Коллекция пустая");
                         break;
                     }
-                    System.out.println(MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(in, 1).getFirst(), 8));
+                    in.nextLine();
+                    int elementCount = MultiThreadCounter.countOccurrences((MyArrayList<Car>) collection, DataProvider.manual(in, 1).getFirst(), 8);
+                    System.out.println(language == Language.ENGLISH ? "Found  " + elementCount + " occurrences of the given car" : "Найдено " + elementCount + " вхождений заданной машины");
                 } //Вызвать метод, который посчитает количество вхождений элемента (элемент задается пользователем)
                 case 8 -> showLangSelectionMenu();
                 case 9 -> System.out.println(language == Language.ENGLISH ? "Application has been shut down" : "Приложение было закрыто");
