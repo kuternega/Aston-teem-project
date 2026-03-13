@@ -153,16 +153,25 @@ public class Menu {
                     in.nextLine();
                     String filePath = in.nextLine();
                     collection = DataProvider.fromFile(filePath);
+                    if(!collection.isEmpty()){
+                        System.out.println(language == Language.ENGLISH ? "Coolection load sucsesfully" : "Коллекция успешно загружена");
+                    }
                     choiceFillMenu = 5;
                 } //Вызвать метод, который заполнит коллекцию из файла
                 case 2 -> {
                     collection = DataProvider.fromFile();
+                    if(!collection.isEmpty()){
+                        System.out.println(language == Language.ENGLISH ? "Coolection load sucsesfully" : "Коллекция заполнена");
+                    }
                     choiceFillMenu = 5;
                 }
                 case 3 -> {
                     System.out.println(language == Language.ENGLISH ? "Enter the number of elements:" : "Введите количество элементов:");
                     int count = scannerNextInt();
                     collection = DataProvider.random(count);
+                    if(!collection.isEmpty()){
+                        System.out.println(language == Language.ENGLISH ? "Collection is full" : "Коллекция успешно загружена");
+                    }
                     choiceFillMenu = 5;
                 } //Вызвать метод, который заполнит коллекцию случайными элементами
                 case 4 -> {
@@ -171,6 +180,9 @@ public class Menu {
                     in.nextLine();
                     System.out.println(language == Language.ENGLISH ? "Enter values manually" : "Введите значения вручную:");
                     collection = DataProvider.manual(in, count);
+                    if(!collection.isEmpty()){
+                        System.out.println(language == Language.ENGLISH ? "Collection is full" : "Коллекция заполнена");
+                    }
                     choiceFillMenu = 5;
                 } //Вызвать метод, который заполнит коллекцию элементами, введенными пользователем
                 case 5 -> System.out.println(language == Language.ENGLISH ? "Returning to menu." : "Возврат в меню:");
